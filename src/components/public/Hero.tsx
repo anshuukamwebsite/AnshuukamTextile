@@ -122,7 +122,7 @@ export function Hero() {
                                         mixBlendMode: 'multiply'
                                     }}
                                 >
-                                    <source src="/animated.mp4" type="video/mp4" />
+                                    <source src="https://7rz4hb1fun.ufs.sh/f/zqylwzFId0Bn7l999kK3TAGiR6eznS0UaHLhwZrludXvfp2I" type="video/mp4" />
                                     Your browser does not support the video tag.
                                 </video>
 
