@@ -50,6 +50,13 @@
       "when": 1767989460314,
       "tag": "0006_pretty_talkback",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1768315034473,
+      "tag": "0007_add_reviews_table",
+      "breakpoints": true
     }
   ]
 }

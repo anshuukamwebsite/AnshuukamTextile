@@ -16,6 +16,7 @@ import {
     X,
     Image as ImageIcon,
     Palette,
+    Star,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
@@ -27,7 +28,8 @@ const navigation = [
     { name: "Fabrics", href: "/admin/fabrics", icon: Layers },
     { name: "Factory Photos", href: "/admin/factory", icon: ImageIcon },
     { name: "Enquiries", href: "/admin/enquiries", icon: MessageSquare },
-    { name: "Design Enquiries", href: "/admin/design-enquiries", icon: MessageSquare },
+    { name: "Design Enquiries", href: "/admin/design-enquiries", icon: Palette },
+    { name: "Reviews", href: "/admin/reviews", icon: Star },
     { name: "Settings", href: "/admin/settings", icon: Settings },
 ];
 

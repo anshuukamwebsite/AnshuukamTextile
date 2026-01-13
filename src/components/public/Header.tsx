@@ -15,6 +15,7 @@ const navigation = [
     { name: "Fabrics", href: "/fabrics" },
     { name: "Design", href: "/design" },
     { name: "Factory", href: "/factory" },
+    { name: "Reviews", href: "/reviews" },
     { name: "About", href: "/about" },
     { name: "Contact", href: "/contact" },
 ];

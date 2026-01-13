@@ -209,6 +209,25 @@ export const factoryPhotos = pgTable("factory_photos", {
     updatedAt: timestamp("updated_at").defaultNow(),
 });
 
+// ==================== REVIEWS TABLE ====================
+
+export const reviews = pgTable("reviews", {
+    id: uuid("id").primaryKey().defaultRandom(),
+    // Reviewer info
+    name: varchar("name", { length: 255 }).notNull(),
+    company: varchar("company", { length: 255 }),
+    email: varchar("email", { length: 255 }),
+    // Review content
+    rating: integer("rating").notNull(), // 1-5 stars
+    message: text("message").notNull(),
+    // Status
+    status: varchar("status", { length: 50 }).default("pending"), // pending, approved, rejected
+    isVisible: boolean("is_visible").default(true), // Can hide approved reviews
+    // Timestamps
+    createdAt: timestamp("created_at").defaultNow(),
+    updatedAt: timestamp("updated_at").defaultNow(),
+});
+
 // ==================== RELATIONS ====================
 
 export const clothingTypesRelations = relations(clothingTypes, ({ many }) => ({
@@ -305,3 +324,6 @@ export type NewCatalogueItemColor = typeof catalogueItemColors.$inferInsert;
 
 export type DesignTemplate = typeof designTemplates.$inferSelect;
 export type NewDesignTemplate = typeof designTemplates.$inferInsert;
+
+export type Review = typeof reviews.$inferSelect;
+export type NewReview = typeof reviews.$inferInsert;
