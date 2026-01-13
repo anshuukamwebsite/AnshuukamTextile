@@ -39,6 +39,8 @@ export function Footer() {
                                 { name: "Fabric Options", href: "/fabrics" },
                                 { name: "Our Factory", href: "/factory" },
                                 { name: "About Us", href: "/about" },
+                                { name: "Our Team", href: "/about/team" },
+                                { name: "Legal & Policies", href: "/about/legal" },
                                 { name: "Request Quote", href: "/enquiry" },
                             ].map((link) => (
                                 <li key={link.name}>
