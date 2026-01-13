@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
-import NextImage from "next/image";
+
 import {
     Factory,
     LayoutDashboard,
@@ -57,12 +57,10 @@ export function AdminSidebar() {
             <div className={`border-b border-border ${theme === "enterprise" ? "p-3 bg-primary" : "p-6"}`}>
                 <Link href="/admin" className="flex items-center gap-2">
                     <div className="relative h-10 w-32">
-                        <NextImage
+                        <img
                             src="/logo.png"
                             alt="Admin Panel"
-                            fill
-                            className={`object-contain object-left ${theme === "enterprise" ? "brightness-0 invert" : ""}`}
-                            priority
+                            className={`object-contain object-left w-full h-full ${theme === "enterprise" ? "brightness-0 invert" : ""}`}
                         />
                     </div>
                 </Link>

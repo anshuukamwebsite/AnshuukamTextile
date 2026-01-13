@@ -54,7 +54,7 @@ import {
     ChevronsLeft,
     ChevronsRight,
 } from "lucide-react";
-import Image from "next/image";
+
 
 interface DesignEnquiry {
     id: string;
@@ -350,11 +350,10 @@ export default function DesignEnquiriesPage() {
                 header: "Preview",
                 cell: ({ row }) => (
                     <div className="w-12 h-12 relative rounded overflow-hidden border border-border">
-                        <Image
+                        <img
                             src={row.original.designImageUrl}
                             alt="Design preview"
-                            fill
-                            className="object-cover"
+                            className="object-cover w-full h-full"
                         />
                     </div>
                 ),
@@ -658,11 +657,10 @@ export default function DesignEnquiriesPage() {
                                 <div>
                                     <p className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-medium">Front Design</p>
                                     <div className="aspect-square relative rounded-lg overflow-hidden border border-border bg-muted">
-                                        <Image
+                                        <img
                                             src={selectedEnquiry.designImageUrl}
                                             alt="Front Design"
-                                            fill
-                                            className="object-contain"
+                                            className="object-contain w-full h-full"
                                         />
                                     </div>
                                     <Button
@@ -680,11 +678,10 @@ export default function DesignEnquiriesPage() {
                                     <div>
                                         <p className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-medium">Back Design</p>
                                         <div className="aspect-square relative rounded-lg overflow-hidden border border-border bg-muted">
-                                            <Image
+                                            <img
                                                 src={selectedEnquiry.backDesignImageUrl}
                                                 alt="Back Design"
-                                                fill
-                                                className="object-contain"
+                                                className="object-contain w-full h-full"
                                             />
                                         </div>
                                         <Button
@@ -703,11 +700,10 @@ export default function DesignEnquiriesPage() {
                                     <div>
                                         <p className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-medium">Side Design</p>
                                         <div className="aspect-square relative rounded-lg overflow-hidden border border-border bg-muted">
-                                            <Image
+                                            <img
                                                 src={selectedEnquiry.sideDesignImageUrl}
                                                 alt="Side Design"
-                                                fill
-                                                className="object-contain"
+                                                className="object-contain w-full h-full"
                                             />
                                         </div>
                                         <Button
@@ -741,11 +737,10 @@ export default function DesignEnquiriesPage() {
                                                 {logoUrls.map((url, index) => (
                                                     <div key={index} className="relative group">
                                                         <div className="aspect-square relative rounded-lg overflow-hidden border border-border bg-muted">
-                                                            <Image
+                                                            <img
                                                                 src={url}
                                                                 alt={`Logo ${index + 1}`}
-                                                                fill
-                                                                className="object-contain"
+                                                                className="object-contain w-full h-full"
                                                             />
                                                         </div>
                                                         <Button

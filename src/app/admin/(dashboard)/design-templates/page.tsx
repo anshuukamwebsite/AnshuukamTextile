@@ -23,7 +23,7 @@ import {
 import { toast } from "sonner";
 import { Plus, Trash2, Upload, Loader2, Image as ImageIcon } from "lucide-react";
 import { ImageUpload } from "@/components/admin/ImageUpload";
-import Image from "next/image";
+
 
 interface DesignTemplate {
     id: string;
@@ -263,10 +263,10 @@ export default function DesignTemplatesPage() {
                                         <TableCell>
                                             <div className="flex gap-2">
                                                 <div className="w-10 h-10 relative rounded overflow-hidden border">
-                                                    <Image src={template.frontImageUrl} alt="Front" fill className="object-cover" />
+                                                    <img src={template.frontImageUrl} alt="Front" className="object-cover w-full h-full" />
                                                 </div>
                                                 <div className="w-10 h-10 relative rounded overflow-hidden border">
-                                                    <Image src={template.backImageUrl} alt="Back" fill className="object-cover" />
+                                                    <img src={template.backImageUrl} alt="Back" className="object-cover w-full h-full" />
                                                 </div>
                                             </div>
                                         </TableCell>

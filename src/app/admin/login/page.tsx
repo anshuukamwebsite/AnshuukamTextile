@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Factory, Loader2, AlertCircle } from "lucide-react";
 
-import Image from "next/image";
+
 
 export default function AdminLoginPage() {
     const router = useRouter();
@@ -50,12 +50,10 @@ export default function AdminLoginPage() {
                     {/* Logo */}
                     <div className="flex flex-col items-center justify-center gap-2 mb-8">
                         <div className="relative h-16 w-48">
-                            <Image
+                            <img
                                 src="/logo.png"
                                 alt="Anshuukam Textile"
-                                fill
-                                className="object-contain"
-                                priority
+                                className="object-contain w-full h-full"
                             />
                         </div>
 

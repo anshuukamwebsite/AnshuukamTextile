@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import Image from "next/image";
+
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { Upload, X, Loader2, ImageIcon, Plus } from "lucide-react";
@@ -239,11 +239,10 @@ export function ImageUpload({
                 <div className={`grid gap-4 ${multiple ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-1'}`}>
                     {images.map((url, index) => (
                         <div key={url + index} className="relative aspect-[4/3] w-full overflow-hidden rounded-lg border border-border bg-muted group shadow-sm">
-                            <Image
+                            <img
                                 src={url}
                                 alt={`Image ${index + 1}`}
-                                fill
-                                className="object-cover"
+                                className="object-cover w-full h-full absolute inset-0"
                             />
                             <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                                 <Button

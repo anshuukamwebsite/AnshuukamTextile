@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
-import Image from "next/image";
+
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -742,11 +742,10 @@ export default function CategoryProductsPage() {
                                             <TableCell>
                                                 {primaryImage ? (
                                                     <div className="relative h-10 w-14 rounded overflow-hidden bg-muted group">
-                                                        <Image
+                                                        <img
                                                             src={primaryImage}
                                                             alt={item.name}
-                                                            fill
-                                                            className="object-cover"
+                                                            className="object-cover w-full h-full"
                                                         />
                                                         {item.images && item.images.length > 1 && (
                                                             <div className="absolute bottom-0 right-0 bg-black/60 text-white text-[10px] px-1">

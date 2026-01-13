@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Image from "next/image";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -448,11 +448,10 @@ export default function FabricsPage() {
                                         <TableCell>
                                             {fabric.imageUrl ? (
                                                 <div className="relative h-10 w-14 rounded overflow-hidden bg-muted group">
-                                                    <Image
+                                                    <img
                                                         src={fabric.imageUrl}
                                                         alt={fabric.name}
-                                                        fill
-                                                        className="object-cover"
+                                                        className="object-cover w-full h-full"
                                                     />
                                                     {fabric.images && fabric.images.length > 1 && (
                                                         <div className="absolute bottom-0 right-0 bg-black/60 text-white text-[10px] px-1">

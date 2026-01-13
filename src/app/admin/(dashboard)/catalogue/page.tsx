@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Image from "next/image";
+
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -417,11 +417,10 @@ export default function CataloguePage() {
                                         <TableCell>
                                             {type.imageUrl ? (
                                                 <div className="relative h-10 w-14 rounded overflow-hidden bg-muted group">
-                                                    <Image
+                                                    <img
                                                         src={type.imageUrl}
                                                         alt={type.name}
-                                                        fill
-                                                        className="object-cover"
+                                                        className="object-cover w-full h-full"
                                                     />
                                                     {type.images && type.images.length > 1 && (
                                                         <div className="absolute bottom-0 right-0 bg-black/60 text-white text-[10px] px-1">
