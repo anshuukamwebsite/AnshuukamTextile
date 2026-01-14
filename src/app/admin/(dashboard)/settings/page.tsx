@@ -248,7 +248,7 @@ export default function SettingsPage() {
                                                 contact_phone: e.target.value,
                                             }))
                                         }
-                                        placeholder="+1 (555) 123-4567"
+                                        placeholder="+91 (555) 123-4567"
                                     />
                                     <p className="text-xs text-muted-foreground">
                                         Displayed on the Contact page

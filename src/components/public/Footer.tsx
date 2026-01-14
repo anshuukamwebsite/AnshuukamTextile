@@ -1,7 +1,10 @@
 import Link from "next/link";
-import { Heart, Mail, Phone, MapPin, Youtube, Instagram, Facebook } from "lucide-react";
+import { Mail, Phone, MapPin, Youtube, Instagram, Facebook } from "lucide-react";
+import { getContactSettings } from "@/lib/services/settings";
 
-export function Footer() {
+export async function Footer() {
+    const contact = await getContactSettings();
+
     return (
         <footer className="bg-primary text-primary-foreground relative overflow-hidden">
             {/* Industrial Warning Stripe Top */}
@@ -80,11 +83,11 @@ export function Footer() {
                             </li>
                             <li className="flex items-center gap-3 group">
                                 <Phone className="h-5 w-5 flex-shrink-0 text-accent group-hover:text-white transition-colors" />
-                                <span className="text-sm opacity-80 group-hover:opacity-100 transition-opacity">+91 84691 59877</span>
+                                <span className="text-sm opacity-80 group-hover:opacity-100 transition-opacity">{contact.phone}</span>
                             </li>
                             <li className="flex items-center gap-3 group">
                                 <Mail className="h-5 w-5 flex-shrink-0 text-accent group-hover:text-white transition-colors" />
-                                <span className="text-sm opacity-80 group-hover:opacity-100 transition-opacity">info@anshuukam.com</span>
+                                <span className="text-sm opacity-80 group-hover:opacity-100 transition-opacity">{contact.email}</span>
                             </li>
                         </ul>
                     </div>

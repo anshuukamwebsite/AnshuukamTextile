@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Users, Sparkles, Shield, Target, Globe, Award, Zap, Heart, Star, CheckCircle, ArrowLeft } from "lucide-react";
-import { getAboutPageSettings } from "@/lib/services/settings";
+import { getAboutPageSettings, getContactSettings } from "@/lib/services/settings";
 
 const iconMap: Record<string, any> = {
     Sparkles, Shield, Users, Target, Globe, Award, Zap, Heart, Star, CheckCircle,
@@ -17,6 +17,7 @@ export const metadata = {
 
 export default async function TeamPage() {
     const content = await getAboutPageSettings();
+    const contact = await getContactSettings();
 
     return (
         <div className="min-h-screen bg-blueprint relative">
@@ -139,7 +140,7 @@ export default async function TeamPage() {
                     <p className="text-primary-foreground/80 mb-8 max-w-xl mx-auto text-lg font-light">
                         Partner with a team that values quality, trust, and craftsmanship above all.
                     </p>
-                    <a href="mailto:info@anshuukam.com">
+                    <a href={`mailto:${contact.email}`}>
                         <Button variant="secondary" size="lg" className="h-12 px-8 text-base font-medium hover:bg-accent hover:text-white transition-colors">
                             Get in Touch
                         </Button>

@@ -20,14 +20,22 @@ const navigation = [
     { name: "Contact", href: "/contact" },
 ];
 
+interface ContactSettings {
+    phone: string;
+    email: string;
+    whatsappNumber: string;
+}
+
 interface HeaderProps {
     navigationData?: {
         categories: any[];
         fabrics: any[];
     };
+    contactSettings?: ContactSettings;
 }
 
-export function Header({ navigationData }: HeaderProps) {
+export function Header({ navigationData, contactSettings }: HeaderProps) {
+    const whatsappNumber = contactSettings?.whatsappNumber || "918469159877";
     const [isOpen, setIsOpen] = useState(false);
     const [hoveredNav, setHoveredNav] = useState<string | null>(null);
     const [activeCategory, setActiveCategory] = useState<any | null>(null);
@@ -205,7 +213,7 @@ export function Header({ navigationData }: HeaderProps) {
                     {/* CTA Button */}
                     <div className="hidden md:flex items-center gap-3">
                         <a
-                            href="https://wa.me/918469159877?text=Hello%20Anshuukam%20Textile!%20I%20would%20like%20to%20know%20more%20about%20your%20manufacturing%20services."
+                            href={`https://wa.me/${whatsappNumber}?text=Hello%20Anshuukam%20Textile!%20I%20would%20like%20to%20know%20more%20about%20your%20manufacturing%20services.`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex items-center justify-center w-10 h-10 rounded-full bg-green-500 hover:bg-green-600 text-white transition-colors shadow-sm hover:shadow-md"
@@ -246,7 +254,7 @@ export function Header({ navigationData }: HeaderProps) {
                                     </Link>
                                 ))}
                                 <a
-                                    href="https://wa.me/918469159877?text=Hello%20Anshuukam%20Textile!%20I%20would%20like%20to%20know%20more%20about%20your%20manufacturing%20services."
+                                    href={`https://wa.me/${whatsappNumber}?text=Hello%20Anshuukam%20Textile!%20I%20would%20like%20to%20know%20more%20about%20your%20manufacturing%20services.`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="flex items-center justify-center gap-2 w-full mt-4 bg-green-500 hover:bg-green-600 text-white py-2 rounded-md transition-colors"

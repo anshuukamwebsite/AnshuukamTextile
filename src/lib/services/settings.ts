@@ -374,6 +374,44 @@ export async function getSettingValue<T>(key: string, defaultValue: T): Promise<
     return setting.value as T;
 }
 
+// Default contact info
+const DEFAULT_CONTACT = {
+    phone: "+91 84691 59877",
+    email: "info@anshuukam.com",
+    whatsappNumber: "918469159877", // Without + for WhatsApp links
+};
+
+export const getContactSettings = unstable_cache(
+    async () => {
+        try {
+            const settings = await db.query.siteSettings.findMany();
+            const settingsMap = settings.reduce((acc, s) => {
+                acc[s.key] = s.value;
+                return acc;
+            }, {} as Record<string, unknown>);
+
+            const phone = (settingsMap.contact_phone as string) || DEFAULT_CONTACT.phone;
+            const email = (settingsMap.contact_email as string) || DEFAULT_CONTACT.email;
+            // Extract digits from phone number for WhatsApp
+            const whatsappNumber = phone.replace(/[^0-9]/g, '') || DEFAULT_CONTACT.whatsappNumber;
+
+            return {
+                phone,
+                email,
+                whatsappNumber,
+            };
+        } catch (error) {
+            console.error("Failed to fetch contact settings:", error);
+            return DEFAULT_CONTACT;
+        }
+    },
+    ["contact-settings"],
+    {
+        tags: ["settings"],
+        revalidate: 3600 // Revalidate every hour
+    }
+);
+
 // ==================== SITE SECTIONS ====================
 
 export const getSiteSections = unstable_cache(

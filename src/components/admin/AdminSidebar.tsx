@@ -17,6 +17,7 @@ import {
     Image as ImageIcon,
     Palette,
     Star,
+    Tag,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
@@ -30,6 +31,7 @@ const navigation = [
     { name: "Enquiries", href: "/admin/enquiries", icon: MessageSquare },
     { name: "Design Enquiries", href: "/admin/design-enquiries", icon: Palette },
     { name: "Reviews", href: "/admin/reviews", icon: Star },
+    { name: "Offers", href: "/admin/offers", icon: Tag },
     { name: "Settings", href: "/admin/settings", icon: Settings },
 ];
 
