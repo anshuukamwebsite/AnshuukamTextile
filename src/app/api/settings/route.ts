@@ -27,7 +27,14 @@ export async function GET(request: NextRequest) {
                 );
             }
             // Return just the value for easier consumption
-            return NextResponse.json({ success: true, data: setting.value });
+            return NextResponse.json(
+                { success: true, data: setting.value },
+                {
+                    headers: {
+                        'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=86400',
+                    },
+                }
+            );
         }
 
         const settings = await getSiteSettings();
@@ -38,7 +45,14 @@ export async function GET(request: NextRequest) {
             return acc;
         }, {} as Record<string, unknown>);
 
-        return NextResponse.json({ success: true, data: settingsObject, raw: settings });
+        return NextResponse.json(
+            { success: true, data: settingsObject, raw: settings },
+            {
+                headers: {
+                    'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=86400',
+                },
+            }
+        );
     } catch (error) {
         console.error("Failed to fetch settings:", error);
         return NextResponse.json(

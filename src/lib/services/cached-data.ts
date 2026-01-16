@@ -24,7 +24,7 @@ export const getCachedClothingTypes = unstable_cache(
     ["clothing-types"],
     {
         tags: ["catalogue"],
-        revalidate: 43200, // 12 hours fallback
+        revalidate: false, // Cache until tag invalidation
     }
 );
 
@@ -40,7 +40,7 @@ export const getCachedClothingTypeBySlug = unstable_cache(
     ["clothing-type-by-slug"],
     {
         tags: ["catalogue"],
-        revalidate: 43200,
+        revalidate: false,
     }
 );
 
@@ -79,7 +79,7 @@ export const getCachedCatalogueItems = unstable_cache(
     ["catalogue-items-by-category"],
     {
         tags: ["catalogue"],
-        revalidate: 43200,
+        revalidate: false,
     }
 );
 
@@ -108,7 +108,7 @@ export const getCachedCatalogueItemBySlug = unstable_cache(
     ["catalogue-item-by-slug"],
     {
         tags: ["catalogue"],
-        revalidate: 43200,
+        revalidate: false,
     }
 );
 
@@ -126,7 +126,7 @@ export const getCachedFabrics = unstable_cache(
     ["fabrics"],
     {
         tags: ["fabrics"],
-        revalidate: 43200,
+        revalidate: false,
     }
 );
 
@@ -142,7 +142,7 @@ export const getCachedFabricBySlug = unstable_cache(
     ["fabric-by-slug"],
     {
         tags: ["fabrics"],
-        revalidate: 43200,
+        revalidate: false,
     }
 );
 
@@ -160,7 +160,7 @@ export const getCachedFactoryPhotos = unstable_cache(
     ["all_photos"],
     {
         tags: ["factory"],
-        revalidate: 43200,
+        revalidate: false,
     }
 );
 
@@ -197,7 +197,7 @@ export const getCachedCapacityStats = unstable_cache(
     ["capacity-stats"],
     {
         tags: ["settings"],
-        revalidate: 43200,
+        revalidate: false,
     }
 );
 
@@ -251,6 +251,6 @@ export const getCachedNavigationData = unstable_cache(
     ["navigation-data"],
     {
         tags: ["catalogue", "fabrics"],
-        revalidate: 43200,
+        revalidate: false,
     }
 );

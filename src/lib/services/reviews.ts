@@ -20,7 +20,7 @@ export const getPublicReviews = unstable_cache(
     ["public-reviews"],
     {
         tags: ["reviews"],
-        revalidate: 3600 // Revalidate every hour
+        revalidate: false // Cache until tag invalidation
     }
 );
 

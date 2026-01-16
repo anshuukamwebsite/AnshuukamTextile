@@ -1,38 +1,18 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Mail, Phone, MapPin, Clock, Loader2 } from "lucide-react";
+import { Mail, Phone, MapPin } from "lucide-react";
+import { getContactSettings } from "@/lib/services/settings";
 
-interface Settings {
-    contact_email?: string;
-    contact_phone?: string;
-}
+export const metadata = {
+    title: "Contact Us | Anshuukam Textile",
+    description: "Get in touch with Anshuukam Textile for enquiries, quotes, or any questions about our garment manufacturing services.",
+};
 
-export default function ContactPage() {
-    const [settings, setSettings] = useState<Settings>({});
-    const [isLoading, setIsLoading] = useState(true);
+export default async function ContactPage() {
+    const contact = await getContactSettings();
 
-    useEffect(() => {
-        async function fetchSettings() {
-            try {
-                const response = await fetch("/api/settings");
-                const result = await response.json();
-                if (result.success && result.data) {
-                    setSettings(result.data);
-                }
-            } catch (error) {
-                console.error("Failed to fetch settings:", error);
-            } finally {
-                setIsLoading(false);
-            }
-        }
-        fetchSettings();
-    }, []);
-
-    const email = settings.contact_email || "info@anshuukam.com";
-    const phone = settings.contact_phone || "+91 84691 59877";
+    const email = contact.email;
+    const phone = contact.phone;
 
     return (
         <div className="min-h-screen bg-blueprint relative">
@@ -85,13 +65,9 @@ export default function ContactPage() {
                                             <h3 className="font-bold font-serif-display mb-1">Email</h3>
                                             <span className="text-[10px] font-mono text-muted-foreground">CH-01</span>
                                         </div>
-                                        {isLoading ? (
-                                            <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
-                                        ) : (
-                                            <a href={`mailto:${email}`} className="text-sm font-mono text-muted-foreground hover:text-accent transition-colors">
-                                                {email}
-                                            </a>
-                                        )}
+                                        <a href={`mailto:${email}`} className="text-sm font-mono text-muted-foreground hover:text-accent transition-colors">
+                                            {email}
+                                        </a>
                                     </div>
                                 </div>
 
@@ -104,13 +80,9 @@ export default function ContactPage() {
                                             <h3 className="font-bold font-serif-display mb-1">Phone</h3>
                                             <span className="text-[10px] font-mono text-muted-foreground">CH-02</span>
                                         </div>
-                                        {isLoading ? (
-                                            <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
-                                        ) : (
-                                            <a href={`tel:${phone}`} className="text-sm font-mono text-muted-foreground hover:text-accent transition-colors">
-                                                {phone}
-                                            </a>
-                                        )}
+                                        <a href={`tel:${phone}`} className="text-sm font-mono text-muted-foreground hover:text-accent transition-colors">
+                                            {phone}
+                                        </a>
                                     </div>
                                 </div>
 
@@ -130,22 +102,6 @@ export default function ContactPage() {
                                         </p>
                                     </div>
                                 </div>
-
-                                {/* <div className="card-factory p-4 flex items-start gap-4 group hover:border-accent transition-colors">
-                                    <div className="p-3 bg-muted rounded-sm group-hover:bg-accent/10 transition-colors">
-                                        <Clock className="h-5 w-5 text-muted-foreground group-hover:text-accent transition-colors" />
-                                    </div>
-                                    <div className="flex-1">
-                                        <div className="flex justify-between items-start">
-                                            <h3 className="font-bold font-serif-display mb-1">Business Hours</h3>
-                                            <span className="text-[10px] font-mono text-muted-foreground">OPS-TIME</span>
-                                        </div>
-                                        <div className="text-sm font-mono text-muted-foreground space-y-1">
-                                            <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
-                                            <p>Saturday: 10:00 AM - 2:00 PM</p>
-                                        </div>
-                                    </div>
-                                </div> */}
                             </div>
 
                             {/* Quick Quote Card */}
@@ -184,8 +140,6 @@ export default function ContactPage() {
                                     referrerPolicy="no-referrer-when-downgrade"
                                     className="grayscale hover:grayscale-0 transition-all duration-500 relative z-10"
                                 />
-
-
                             </div>
                             <p className="text-xs font-mono text-muted-foreground text-center uppercase tracking-wider">
                                 Visit our manufacturing facility for a tour

@@ -312,7 +312,7 @@ export const getSiteSettings = unstable_cache(
     ["site-settings"],
     {
         tags: ["settings"],
-        revalidate: 3600 // Revalidate every hour
+        revalidate: false // Cache indefinitely until revalidated
     }
 );
 
@@ -330,7 +330,7 @@ export const getSettingByKey = unstable_cache(
     ["setting-by-key"],
     {
         tags: ["settings"],
-        revalidate: 3600
+        revalidate: false
     }
 );
 
@@ -408,7 +408,7 @@ export const getContactSettings = unstable_cache(
     ["contact-settings"],
     {
         tags: ["settings"],
-        revalidate: 3600 // Revalidate every hour
+        revalidate: false // Cache indefinitely until revalidated
     }
 );
 
@@ -428,7 +428,7 @@ export const getSiteSections = unstable_cache(
     ["site-sections"],
     {
         tags: ["sections"],
-        revalidate: 3600
+        revalidate: false
     }
 );
 
@@ -447,7 +447,7 @@ export const getVisibleSections = unstable_cache(
     ["visible-sections"],
     {
         tags: ["sections"],
-        revalidate: 3600
+        revalidate: false
     }
 );
 
@@ -465,7 +465,7 @@ export const getSectionByKey = unstable_cache(
     ["section-by-key"],
     {
         tags: ["sections"],
-        revalidate: 3600
+        revalidate: false
     }
 );
 
