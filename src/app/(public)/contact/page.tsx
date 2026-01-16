@@ -131,7 +131,7 @@ export default function ContactPage() {
                                     </div>
                                 </div>
 
-                                <div className="card-factory p-4 flex items-start gap-4 group hover:border-accent transition-colors">
+                                {/* <div className="card-factory p-4 flex items-start gap-4 group hover:border-accent transition-colors">
                                     <div className="p-3 bg-muted rounded-sm group-hover:bg-accent/10 transition-colors">
                                         <Clock className="h-5 w-5 text-muted-foreground group-hover:text-accent transition-colors" />
                                     </div>
@@ -145,7 +145,7 @@ export default function ContactPage() {
                                             <p>Saturday: 10:00 AM - 2:00 PM</p>
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
 
                             {/* Quick Quote Card */}
@@ -166,9 +166,6 @@ export default function ContactPage() {
                         <div className="space-y-4">
                             <div className="flex items-center justify-between">
                                 <h3 className="text-xl font-bold font-serif-display">Our Location</h3>
-                                <div className="text-[10px] font-mono text-muted-foreground bg-muted px-2 py-1 rounded">
-                                    LAT: 24.47 • LONG: 74.87
-                                </div>
                             </div>
                             <div className="relative w-full h-[400px] lg:h-[500px] bg-muted p-2 card-factory">
                                 {/* Technical overlay corners */}
@@ -178,7 +175,7 @@ export default function ContactPage() {
                                 <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-accent z-20 m-2" />
 
                                 <iframe
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.8354345093747!2d144.9537353153166!3d-37.816279742021665!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d4c2b349649%3A0xb6899234e561db11!2sEnvato!5e0!3m2!1sen!2sus!4v1640000000000!5m2!1sen!2sus"
+                                    src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3629.330606800771!2d74.93329847536073!3d24.543234878137742!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjTCsDMyJzM1LjciTiA3NMKwNTYnMDkuMSJF!5e0!3m2!1sen!2sin!4v1768544554889!5m2!1sen!2sin"
                                     width="100%"
                                     height="100%"
                                     style={{ border: 0 }}
@@ -187,6 +184,8 @@ export default function ContactPage() {
                                     referrerPolicy="no-referrer-when-downgrade"
                                     className="grayscale hover:grayscale-0 transition-all duration-500 relative z-10"
                                 />
+
+
                             </div>
                             <p className="text-xs font-mono text-muted-foreground text-center uppercase tracking-wider">
                                 Visit our manufacturing facility for a tour
