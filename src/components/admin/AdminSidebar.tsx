@@ -60,13 +60,15 @@ export function AdminSidebar() {
             {/* Logo */}
             <div className={`border-b border-border ${theme === "enterprise" ? "p-3 bg-primary" : "p-6"}`}>
                 <Link href="/admin" className="flex items-center gap-2">
-                    <div className="relative h-10 w-32">
+                    <div className="relative h-10 w-32 flex items-center gap-2">
                         <img
                             src="/logo.png"
                             alt="Admin Panel"
                             className={`object-contain object-left w-full h-full ${theme === "enterprise" ? "brightness-0 invert" : ""}`}
                         />
+                        <div className="text-sm font-medium">Admin Panel</div>
                     </div>
+
                 </Link>
             </div>
 

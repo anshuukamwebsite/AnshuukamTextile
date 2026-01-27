@@ -53,14 +53,21 @@ export function Header({ navigationData, contactSettings }: HeaderProps) {
             <div className="container-industrial">
                 <div className="flex h-16 items-center justify-between">
                     {/* Logo */}
-                    {/* Logo */}
-                    <Link href="/" className="flex items-center gap-2">
-                        <div className="relative h-12 w-48">
+                    <Link href="/" className="flex items-center gap-3">
+                        <div className="relative h-10 w-10 flex-shrink-0">
                             <img
                                 src="/logo.png"
                                 alt="Anshuukam Textile"
-                                className="object-contain object-left w-full h-full"
+                                className="object-contain w-full h-full"
                             />
+                        </div>
+                        <div className="flex flex-col justify-center">
+                            <h1 className="text-sm font-bold leading-tight whitespace-nowrap">
+                                Anshuukam Textile Pvt Ltd
+                            </h1>
+                            <h3 className="text-[10px] text-muted-foreground uppercase tracking-wider whitespace-nowrap">
+                                Garment Manufacturing Unit
+                            </h3>
                         </div>
                     </Link>
 
@@ -107,12 +114,12 @@ export function Header({ navigationData, contactSettings }: HeaderProps) {
                                                 animate={{ opacity: 1, y: 0 }}
                                                 exit={{ opacity: 0, y: 10 }}
                                                 transition={{ duration: 0.2 }}
-                                                className="absolute top-full left-1/2 -translate-x-1/2 pt-2 w-max min-w-[200px] z-50"
+                                                className="absolute top-full left-1/2 -translate-x-1/2 pt-2 w-max min-w-50 z-50"
                                             >
                                                 <div className="bg-card border border-border shadow-xl rounded-lg overflow-hidden p-1">
                                                     {/* Categories Mega Menu */}
                                                     {item.name === "Categories" && navigationData?.categories && (
-                                                        <div className="flex w-[800px] h-[400px]">
+                                                        <div className="flex w-200 h-100">
                                                             {/* Sidebar: Categories List */}
                                                             <div className="w-1/3 border-r border-border bg-muted/30 p-2 overflow-y-auto">
                                                                 {navigationData.categories.map((cat) => (

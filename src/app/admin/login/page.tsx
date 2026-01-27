@@ -71,6 +71,7 @@ export default function AdminLoginPage() {
                                 onChange={(e) => setEmail(e.target.value)}
                                 required
                                 disabled={isLoading}
+                                suppressHydrationWarning
                             />
                         </div>
 
@@ -84,6 +85,7 @@ export default function AdminLoginPage() {
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
                                 disabled={isLoading}
+                                suppressHydrationWarning
                             />
                         </div>
 

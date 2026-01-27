@@ -17,12 +17,22 @@ export async function Footer() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
                     {/* Company Info */}
                     <div className="space-y-4">
-                        <div className="relative h-16 w-48 mb-4">
-                            <img
-                                src="/logo.png"
-                                alt="Anshuukam Textile"
-                                className="object-contain object-left brightness-0 invert w-full h-full"
-                            />
+                        <div className="flex items-center gap-3 mb-4">
+                            <div className="relative h-12 w-12 flex-shrink-0">
+                                <img
+                                    src="/logo.png"
+                                    alt="Anshuukam Textile"
+                                    className="object-contain object-left w-full h-full"
+                                />
+                            </div>
+                            <div className="flex flex-col justify-center">
+                                <h2 className="text-base font-bold leading-tight text-white whitespace-nowrap">
+                                    Anshuukam Textile Pvt Ltd
+                                </h2>
+                                <p className="text-[10px] text-accent font-bold uppercase tracking-wider whitespace-nowrap">
+                                    Garment Manufacturing Unit
+                                </p>
+                            </div>
                         </div>
                         <p className="text-sm opacity-80 leading-relaxed font-mono">
                             Where fabric meets emotion, and quality meets trust.
