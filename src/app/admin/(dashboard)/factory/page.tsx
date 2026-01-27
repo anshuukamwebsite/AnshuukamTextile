@@ -228,88 +228,90 @@ export default function FactoryPhotosPage() {
                             Add Photo
                         </Button>
                     </DialogTrigger>
-                    <DialogContent className="max-w-lg">
-                        <DialogHeader>
+                    <DialogContent className="max-w-lg p-0 overflow-hidden">
+                        <DialogHeader className="p-6 pb-0">
                             <DialogTitle>
                                 {editingPhoto ? "Edit Photo" : "Add New Photo"}
                             </DialogTitle>
                         </DialogHeader>
-                        <div className="space-y-4 py-4">
-                            <div className="space-y-2">
-                                <Label htmlFor="title">Title *</Label>
-                                <Input
-                                    id="title"
-                                    value={formData.title}
-                                    onChange={(e) =>
-                                        setFormData((prev) => ({ ...prev, title: e.target.value }))
-                                    }
-                                    placeholder="e.g., Main Production Floor"
-                                />
-                            </div>
+                        <div className="max-h-[80vh] overflow-y-auto p-6 pt-4">
+                            <div className="space-y-4">
+                                <div className="space-y-2">
+                                    <Label htmlFor="title">Title *</Label>
+                                    <Input
+                                        id="title"
+                                        value={formData.title}
+                                        onChange={(e) =>
+                                            setFormData((prev) => ({ ...prev, title: e.target.value }))
+                                        }
+                                        placeholder="e.g., Main Production Floor"
+                                    />
+                                </div>
 
-                            {/* Image Upload */}
-                            <div className="space-y-2">
-                                <Label>Image *</Label>
-                                <ImageUpload
-                                    currentImage={formData.imageUrl}
-                                    onImageUploaded={(url) => setFormData(prev => ({ ...prev, imageUrl: url }))}
-                                    onImageRemoved={() => setFormData(prev => ({ ...prev, imageUrl: "" }))}
-                                    maxFiles={1}
-                                />
-                            </div>
+                                {/* Image Upload */}
+                                <div className="space-y-2">
+                                    <Label>Image *</Label>
+                                    <ImageUpload
+                                        currentImage={formData.imageUrl}
+                                        onImageUploaded={(url) => setFormData(prev => ({ ...prev, imageUrl: url }))}
+                                        onImageRemoved={() => setFormData(prev => ({ ...prev, imageUrl: "" }))}
+                                        maxFiles={1}
+                                    />
+                                </div>
 
-                            <div className="space-y-2">
-                                <Label htmlFor="category">Category</Label>
-                                <Select
-                                    value={formData.category}
-                                    onValueChange={(value) =>
-                                        setFormData((prev) => ({ ...prev, category: value }))
-                                    }
-                                >
-                                    <SelectTrigger>
-                                        <SelectValue />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        {categories.map((cat) => (
-                                            <SelectItem key={cat.value} value={cat.value}>
-                                                {cat.label}
-                                            </SelectItem>
-                                        ))}
-                                    </SelectContent>
-                                </Select>
-                            </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="category">Category</Label>
+                                    <Select
+                                        value={formData.category}
+                                        onValueChange={(value) =>
+                                            setFormData((prev) => ({ ...prev, category: value }))
+                                        }
+                                    >
+                                        <SelectTrigger>
+                                            <SelectValue />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            {categories.map((cat) => (
+                                                <SelectItem key={cat.value} value={cat.value}>
+                                                    {cat.label}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                </div>
 
-                            <div className="space-y-2">
-                                <Label htmlFor="description">Description</Label>
-                                <Textarea
-                                    id="description"
-                                    value={formData.description}
-                                    onChange={(e) =>
-                                        setFormData((prev) => ({
-                                            ...prev,
-                                            description: e.target.value,
-                                        }))
-                                    }
-                                    placeholder="Brief description of the photo..."
-                                    rows={3}
-                                />
-                            </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="description">Description</Label>
+                                    <Textarea
+                                        id="description"
+                                        value={formData.description}
+                                        onChange={(e) =>
+                                            setFormData((prev) => ({
+                                                ...prev,
+                                                description: e.target.value,
+                                            }))
+                                        }
+                                        placeholder="Brief description of the photo..."
+                                        rows={3}
+                                    />
+                                </div>
 
-                            <div className="flex justify-end gap-3 pt-4">
-                                <Button
-                                    variant="outline"
-                                    onClick={() => setIsDialogOpen(false)}
-                                >
-                                    Cancel
-                                </Button>
-                                <Button
-                                    onClick={handleSave}
-                                    disabled={isSaving || isUploading}
-                                    className="btn-industrial"
-                                >
-                                    {isSaving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                                    {editingPhoto ? "Update" : "Add Photo"}
-                                </Button>
+                                <div className="flex justify-end gap-3 pt-4">
+                                    <Button
+                                        variant="outline"
+                                        onClick={() => setIsDialogOpen(false)}
+                                    >
+                                        Cancel
+                                    </Button>
+                                    <Button
+                                        onClick={handleSave}
+                                        disabled={isSaving || isUploading}
+                                        className="btn-industrial"
+                                    >
+                                        {isSaving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                                        {editingPhoto ? "Update" : "Add Photo"}
+                                    </Button>
+                                </div>
                             </div>
                         </div>
                     </DialogContent>
