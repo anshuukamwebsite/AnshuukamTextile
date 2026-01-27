@@ -58,37 +58,34 @@ export function AdminSidebar() {
     const SidebarContent = () => (
         <>
             {/* Logo */}
-            <div className={`border-b border-border ${theme === "enterprise" ? "p-3 bg-primary" : "p-6"}`}>
+            <div className="p-6">
                 <Link href="/admin" className="flex items-center gap-2">
                     <div className="relative h-10 w-32 flex items-center gap-2">
                         <img
                             src="/logo.png"
                             alt="Admin Panel"
-                            className={`object-contain object-left w-full h-full ${theme === "enterprise" ? "brightness-0 invert" : ""}`}
+                            className="object-contain object-left w-full h-full"
                         />
                         <div className="text-sm font-medium">Admin Panel</div>
                     </div>
-
                 </Link>
             </div>
 
             {/* Navigation */}
-            <nav className={`flex-1 relative ${theme === "enterprise" ? "p-0" : "p-4"}`}>
-                {/* Sliding Active Background - only in legacy mode */}
-                {theme === "legacy" && (
-                    <div
-                        className="absolute left-4 right-4 bg-accent rounded-lg transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]"
-                        style={{
-                            height: '44px',
-                            top: '16px',
-                            transform: `translateY(${activeIndex * 48}px)`,
-                            opacity: activeIndex === -1 ? 0 : 1,
-                            zIndex: 0
-                        }}
-                    />
-                )}
+            <nav className="flex-1 relative p-4">
+                {/* Sliding Active Background */}
+                <div
+                    className="absolute left-4 right-4 bg-accent rounded-lg transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]"
+                    style={{
+                        height: '44px',
+                        top: '16px',
+                        transform: `translateY(${activeIndex * 48}px)`,
+                        opacity: activeIndex === -1 ? 0 : 1,
+                        zIndex: 0
+                    }}
+                />
 
-                <div className={`relative z-10 ${theme === "enterprise" ? "" : "space-y-1"}`}>
+                <div className="relative z-10 space-y-1">
                     {navigation.map((item) => {
                         const active = isActive(item.href);
                         return (
@@ -96,17 +93,10 @@ export function AdminSidebar() {
                                 key={item.name}
                                 href={item.href}
                                 onClick={() => setIsMobileOpen(false)}
-                                className={
-                                    theme === "enterprise"
-                                        ? `flex items-center gap-3 px-4 py-2.5 text-sm font-medium border-b border-border transition-colors ${active
-                                            ? "bg-blue-50 text-primary border-l-4 border-l-primary"
-                                            : "text-gray-600 hover:bg-gray-50 border-l-4 border-l-transparent"
-                                        }`
-                                        : `flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors duration-200 ${active
-                                            ? "text-accent-foreground"
-                                            : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-                                        }`
-                                }
+                                className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors duration-200 ${active
+                                    ? "text-accent-foreground"
+                                    : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                                    }`}
                             >
                                 <item.icon className="h-5 w-5" />
                                 {item.name}
@@ -118,19 +108,6 @@ export function AdminSidebar() {
 
             {/* Footer */}
             <div className="p-4 border-t border-border space-y-2">
-                {/* Theme Toggle */}
-                <button
-                    onClick={toggleTheme}
-                    className="w-full flex items-center justify-between px-4 py-2 text-sm rounded-lg bg-muted hover:bg-muted/80 transition-colors"
-                >
-                    <span className="flex items-center gap-2">
-                        <span>{theme === "enterprise" ? "Enterprise" : "Legacy"} UI</span>
-                    </span>
-                    <span className="text-xs text-muted-foreground px-2 py-0.5 bg-background rounded">
-                        {theme === "enterprise" ? "New" : "Classic"}
-                    </span>
-                </button>
-
                 <Link
                     href="/"
                     className="flex items-center gap-2 px-4 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors"

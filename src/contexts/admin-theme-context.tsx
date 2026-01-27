@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
-type AdminTheme = "legacy" | "enterprise";
+type AdminTheme = "legacy";
 
 interface AdminThemeContextType {
     theme: AdminTheme;
@@ -15,30 +15,10 @@ const AdminThemeContext = createContext<AdminThemeContextType | undefined>(undef
 const STORAGE_KEY = "admin-theme-preference";
 
 export function AdminThemeProvider({ children }: { children: ReactNode }) {
-    const [theme, setThemeState] = useState<AdminTheme>("enterprise");
-    const [mounted, setMounted] = useState(false);
+    const theme: AdminTheme = "legacy";
 
-    useEffect(() => {
-        setMounted(true);
-        const stored = localStorage.getItem(STORAGE_KEY) as AdminTheme | null;
-        if (stored === "enterprise" || stored === "legacy") {
-            setThemeState(stored);
-        }
-    }, []);
-
-    const setTheme = (newTheme: AdminTheme) => {
-        setThemeState(newTheme);
-        localStorage.setItem(STORAGE_KEY, newTheme);
-    };
-
-    const toggleTheme = () => {
-        setTheme(theme === "legacy" ? "enterprise" : "legacy");
-    };
-
-    // Prevent flash of wrong theme
-    if (!mounted) {
-        return <>{children}</>;
-    }
+    const setTheme = () => { };
+    const toggleTheme = () => { };
 
     return (
         <AdminThemeContext.Provider value={{ theme, setTheme, toggleTheme }}>
@@ -49,10 +29,9 @@ export function AdminThemeProvider({ children }: { children: ReactNode }) {
 
 export function useAdminTheme() {
     const context = useContext(AdminThemeContext);
-    // Return default values for SSG - actual values come from client-side provider
     if (context === undefined) {
         return {
-            theme: "enterprise" as AdminTheme,
+            theme: "legacy" as AdminTheme,
             setTheme: () => { },
             toggleTheme: () => { },
         };
