@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Mail, Phone, MapPin, Youtube, Instagram, Facebook } from "lucide-react";
 import { getContactSettings } from "@/lib/services/settings";
+import { getCachedClothingTypes } from "@/lib/services/cached-data";
 
 export async function Footer() {
     const contact = await getContactSettings();
@@ -73,11 +74,16 @@ export async function Footer() {
                     <div>
                         <h3 className="font-serif-display font-bold text-xl mb-6 text-accent tracking-wide">We Manufacture</h3>
                         <ul className="space-y-3 text-sm opacity-80 border-l border-white/10 pl-4">
-                            <li className="hover:text-white transition-colors">T-Shirts & Polos</li>
-                            <li className="hover:text-white transition-colors">Hoodies & Sweatshirts</li>
-                            <li className="hover:text-white transition-colors">Jackets & Outerwear</li>
-                            <li className="hover:text-white transition-colors">Workwear & Uniforms</li>
-                            <li className="hover:text-white transition-colors">Athletic Wear</li>
+                            {(await getCachedClothingTypes()).map((category) => (
+                                <li key={category.id}>
+                                    <Link
+                                        href={`/catalogue/${category.slug}`}
+                                        className="text-sm opacity-70 hover:opacity-100 transition-all hover:text-accent hover:pl-1 block"
+                                    >
+                                        {category.name}
+                                    </Link>
+                                </li>
+                            ))}
                         </ul>
                     </div>
 
