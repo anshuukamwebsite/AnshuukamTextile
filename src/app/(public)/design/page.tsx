@@ -1092,9 +1092,10 @@ export default function DesignPage() {
 
                                     <Dialog open={isClipartOpen} onOpenChange={setIsClipartOpen}>
                                         <DialogTrigger asChild>
-                                            <Button variant="outline" className="card-factory h-20 flex flex-col gap-2 col-span-2 hover:border-accent hover:bg-accent/5 transition-all">
-                                                <ImageIcon className="h-5 w-5 text-accent" />
+                                            <Button variant="outline" className="card-factory h-auto py-3 flex flex-col gap-1 col-span-2 hover:border-accent hover:bg-accent/5 transition-all">
+                                                <ImageIcon className="h-5 w-5 text-accent mb-1" />
                                                 <span className="text-[10px] font-mono uppercase">Add Clipart Library</span>
+                                                <span className="text-[9px] text-muted-foreground/70 font-normal normal-case tracking-tight">Some icons colours not changable</span>
                                             </Button>
                                         </DialogTrigger>
                                         <DialogContent className="sm:max-w-[600px] h-[80vh] flex flex-col bg-background/95 backdrop-blur border-white/10">
