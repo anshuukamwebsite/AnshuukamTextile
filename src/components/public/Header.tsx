@@ -11,7 +11,7 @@ import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
 const navigation = [
     { name: "Home", href: "/" },
-    { name: "Categories", href: "/catalogue" },
+    { name: "Products", href: "/catalogue" },
     { name: "Fabrics", href: "/fabrics" },
     { name: "Design", href: "/design" },
     { name: "Factory", href: "/factory" },
@@ -42,9 +42,9 @@ export function Header({ navigationData, contactSettings }: HeaderProps) {
     const [activeCategory, setActiveCategory] = useState<any | null>(null);
     const pathname = usePathname();
 
-    // Set default active category when opening Categories menu
+    // Set default active category when opening Products menu
     useEffect(() => {
-        if (hoveredNav === "Categories" && navigationData?.categories && navigationData.categories.length > 0) {
+        if (hoveredNav === "Products" && navigationData?.categories && navigationData.categories.length > 0) {
             setActiveCategory(navigationData.categories[0]);
         }
     }, [hoveredNav, navigationData]);
@@ -79,7 +79,7 @@ export function Header({ navigationData, contactSettings }: HeaderProps) {
                                 ? pathname === "/"
                                 : pathname.startsWith(item.href);
 
-                            const hasDropdown = (item.name === "Categories" || item.name === "Fabrics") && navigationData;
+                            const hasDropdown = (item.name === "Products" || item.name === "Fabrics") && navigationData;
 
                             return (
                                 <div
@@ -118,8 +118,8 @@ export function Header({ navigationData, contactSettings }: HeaderProps) {
                                                 className="absolute top-full left-1/2 -translate-x-1/2 pt-2 w-max min-w-50 z-50"
                                             >
                                                 <div className="bg-card border border-border shadow-xl rounded-lg overflow-hidden p-1">
-                                                    {/* Categories Mega Menu */}
-                                                    {item.name === "Categories" && navigationData?.categories && (
+                                                    {/* Products Mega Menu */}
+                                                    {item.name === "Products" && navigationData?.categories && (
                                                         <div className="flex w-200 h-100">
                                                             {/* Sidebar: Categories List */}
                                                             <div className="w-1/3 border-r border-border bg-muted/30 p-2 overflow-y-auto">
@@ -137,7 +137,7 @@ export function Header({ navigationData, contactSettings }: HeaderProps) {
                                                                     </div>
                                                                 ))}
                                                                 <Link href="/catalogue" className="block mt-4 px-3 py-2 text-xs text-accent hover:underline">
-                                                                    View All Categories →
+                                                                    View All Products →
                                                                 </Link>
                                                             </div>
 
