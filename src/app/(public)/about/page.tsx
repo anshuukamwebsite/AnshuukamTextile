@@ -87,24 +87,24 @@ export default async function AboutPage() {
                             </div>
                         </Link>
 
-                        {/* Legal Card */}
-                        <Link href="/about/legal" className="group">
+                        {/* Future Goals Card */}
+                        <Link href="/about/future-goals" className="group">
                             <div className="card-factory p-8 h-full bg-background hover:border-accent transition-all duration-300">
                                 <div className="flex items-start gap-4 mb-4">
                                     <div className="p-3 bg-accent/10 rounded-lg group-hover:bg-accent/20 transition-colors">
-                                        <FileText className="h-6 w-6 text-accent" />
+                                        <ArrowRight className="h-6 w-6 text-accent" />
                                     </div>
                                     <div className="flex-1">
                                         <h3 className="text-xl font-bold font-serif-display group-hover:text-accent transition-colors">
-                                            Legal & Policies
+                                            Future Goals
                                         </h3>
                                         <p className="text-sm text-muted-foreground mt-2">
-                                            Privacy Policy, Terms of Service, Refund Policy, Shipping Terms, and more.
+                                            Our commitment to sustainable energy, eco-friendly manufacturing, and social responsibility.
                                         </p>
                                     </div>
                                 </div>
                                 <div className="flex items-center gap-2 text-sm font-medium text-accent">
-                                    View Policies
+                                    Our Vision
                                     <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                                 </div>
                             </div>
