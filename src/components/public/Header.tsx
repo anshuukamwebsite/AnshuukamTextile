@@ -12,8 +12,7 @@ import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 const navigation = [
     { name: "Home", href: "/" },
     { name: "Products", href: "/catalogue" },
-    { name: "Fabrics", href: "/fabrics" },
-    { name: "Design", href: "/design" },
+    { name: "Custom Design", href: "/design" },
     { name: "Factory", href: "/factory" },
     { name: "About", href: "/about" },
     { name: "Contact", href: "/contact" },
@@ -77,7 +76,7 @@ export function Header({ navigationData, contactSettings }: HeaderProps) {
                                 ? pathname === "/"
                                 : pathname.startsWith(item.href);
 
-                            const hasDropdown = (item.name === "Products" || item.name === "Fabrics") && navigationData;
+                            const hasDropdown = (item.name === "Products") && navigationData;
 
                             return (
                                 <div
@@ -187,26 +186,6 @@ export function Header({ navigationData, contactSettings }: HeaderProps) {
                                                         </div>
                                                     )}
 
-                                                    {/* Fabrics Menu */}
-                                                    {item.name === "Fabrics" && navigationData?.fabrics && (
-                                                        <div className="w-[300px] p-2 max-h-[400px] overflow-y-auto">
-                                                            <div className="mb-2 px-2 py-1 text-xs font-bold text-muted-foreground uppercase tracking-wider">
-                                                                Available Fabrics
-                                                            </div>
-                                                            {navigationData.fabrics.map((fabric) => (
-                                                                <Link
-                                                                    key={fabric.id}
-                                                                    href={`/fabrics/${fabric.slug}`}
-                                                                    className="block px-3 py-2 rounded-md hover:bg-muted text-sm transition-colors"
-                                                                >
-                                                                    {fabric.name}
-                                                                </Link>
-                                                            ))}
-                                                            <Link href="/fabrics" className="block mt-2 px-3 py-2 text-xs text-accent hover:underline border-t border-border">
-                                                                View All Fabrics →
-                                                            </Link>
-                                                        </div>
-                                                    )}
                                                 </div>
                                             </motion.div>
                                         )}
