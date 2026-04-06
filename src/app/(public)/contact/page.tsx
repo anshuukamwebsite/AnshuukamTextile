@@ -28,8 +28,8 @@ export default async function ContactPage() {
                 <div className="container-industrial relative z-10">
                     <div className="max-w-3xl">
                         <div className="flex items-center gap-2 mb-2 text-white/80">
-                            <span className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse" />
-                            <span className="text-xs font-mono tracking-widest uppercase">GET_IN_TOUCH</span>
+                            <span className="w-1.5 h-1.5 bg-accent rounded-full " />
+                            <span className="text-xs font-mono tracking-widest uppercase">GET IN TOUCH</span>
                         </div>
                         <h1 className="text-2xl md:text-3xl font-bold mb-2 font-serif-display tracking-wide">Contact Us</h1>
                         <p className="text-sm text-primary-foreground/70 font-light font-mono">
@@ -47,7 +47,7 @@ export default async function ContactPage() {
                         <div>
                             <div className="section-tag mb-6">
                                 <span className="w-2 h-2 bg-accent rounded-full" />
-                                COMMUNICATION_CHANNELS
+                                COMMUNICATION CHANNELS
                             </div>
                             <h2 className="text-3xl font-bold mb-6 font-serif-display">Get In Touch</h2>
                             <p className="text-muted-foreground mb-8 leading-relaxed">
@@ -115,6 +115,32 @@ export default async function ContactPage() {
                                         Start Enquiry Form
                                     </Button>
                                 </Link>
+                            </div>
+
+                            {/* Additional Links: Reviews & Careers */}
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
+                                <div className="card-factory p-6 bg-accent/5 border-accent/10 hover:border-accent/30 transition-all group">
+                                    <h3 className="text-lg font-bold mb-2 font-serif-display group-hover:text-accent transition-colors">Client Reviews</h3>
+                                    <p className="text-muted-foreground mb-4 text-xs font-mono lowercase">
+                                        What our industry partners say about us.
+                                    </p>
+                                    <Link href="/reviews">
+                                        <Button variant="link" className="p-0 h-auto text-accent text-xs font-bold uppercase tracking-widest hover:no-underline flex items-center gap-2">
+                                            READ REVIEWS <span className="text-lg">→</span>
+                                        </Button>
+                                    </Link>
+                                </div>
+                                <div className="card-factory p-6 bg-accent/5 border-accent/10 hover:border-accent/30 transition-all group">
+                                    <h3 className="text-lg font-bold mb-2 font-serif-display group-hover:text-accent transition-colors">Career</h3>
+                                    <p className="text-muted-foreground mb-4 text-xs font-mono lowercase">
+                                        Build your future with Anshuukam Textile
+                                    </p>
+                                    <Link href="/career">
+                                        <Button variant="link" className="p-0 h-auto text-accent text-xs font-bold uppercase tracking-widest hover:no-underline flex items-center gap-2">
+                                            VIEW OPENINGS <span className="text-lg">→</span>
+                                        </Button>
+                                    </Link>
+                                </div>
                             </div>
                         </div>
 
