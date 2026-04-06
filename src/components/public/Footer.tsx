@@ -164,6 +164,17 @@ export async function Footer() {
                         </a>
                     </div>
                 </div>
+
+                <div className="mt-12 flex justify-center border-t border-white/5 pt-6">
+                    <a
+                        href="https://davlabs.in"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[10px] opacity-20 hover:opacity-80 transition-all duration-500 uppercase tracking-[0.3em] font-mono hover:text-accent"
+                    >
+                        Designed & Developed by DAVLabs
+                    </a>
+                </div>
             </div>
         </footer>
     );
