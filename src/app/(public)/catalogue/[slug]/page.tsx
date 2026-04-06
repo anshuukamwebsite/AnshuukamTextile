@@ -96,7 +96,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
                             </Link>
                         </div>
                     ) : (
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
                             {products.map((product, index) => (
                                 <Link
                                     key={product.id}
@@ -125,35 +125,34 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
                                         {/* Industrial Overlay */}
                                         <div className="absolute inset-0 border-2 border-transparent group-hover:border-accent/30 transition-colors z-20 pointer-events-none" />
 
-                                        {/* Gradient Overlay */}
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300" />
+                                        {/* Simple Gradient Overlay for hover effect */}
+                                        <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                                         {/* Customizable Badge */}
                                         {product.isCustomizable && (
-                                            <div className="absolute top-3 right-3 bg-accent text-accent-foreground px-2 py-1 text-[10px] font-mono font-bold z-10 flex items-center gap-1">
+                                            <div className="absolute top-3 right-3 bg-accent text-accent-foreground px-2 py-1 text-[10px] font-mono font-bold z-10 flex items-center gap-1 shadow-sm">
                                                 <PenTool className="h-3 w-3" />
-                                                CUSTOMIZABLE
+                                                CUSTOM
                                             </div>
                                         )}
+                                    </div>
 
-                                        {/* Content Overlay */}
-                                        <div className="absolute bottom-0 left-0 w-full p-6 text-white z-10">
-                                            <div className="w-8 h-1 bg-accent mb-4 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
+                                    {/* Product Info - Now Below Image */}
+                                    <div className="p-4 bg-card border-t border-border">
+                                        <div className="w-8 h-1 bg-accent mb-3" />
+                                        <h3 className="text-lg font-bold mb-1 font-serif-display tracking-wide group-hover:text-accent transition-colors text-foreground">
+                                            {product.name}
+                                        </h3>
+                                        {product.description && (
+                                            <p className="text-xs text-muted-foreground line-clamp-1 leading-relaxed font-mono mb-3">
+                                                {product.description}
+                                            </p>
+                                        )}
 
-                                            <h3 className="text-xl font-bold mb-2 font-serif-display tracking-wide group-hover:text-accent transition-colors">
-                                                {product.name}
-                                            </h3>
-                                            {product.description && (
-                                                <p className="text-xs text-white/70 line-clamp-2 leading-relaxed font-mono">
-                                                    {product.description}
-                                                </p>
-                                            )}
-
-                                            {/* Specs Grid */}
-                                            <div className="grid grid-cols-2 gap-2 text-[10px] font-mono text-white/60 border-t border-white/10 pt-3 mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-2 group-hover:translate-y-0">
-                                                <div>MOQ: {product.minOrderQuantity || category.minOrderQuantity || 100}+</div>
-                                                <div>LEAD: {product.leadTime || category.leadTime || '2-4 Weeks'}</div>
-                                            </div>
+                                        {/* Specs Grid */}
+                                        <div className="grid grid-cols-2 gap-2 text-[9px] font-mono text-muted-foreground border-t border-border pt-2 mt-auto">
+                                            <div>MOQ: {product.minOrderQuantity || category.minOrderQuantity || 100}+</div>
+                                            <div>LEAD: {product.leadTime || category.leadTime || '2-4 Weeks'}</div>
                                         </div>
                                     </div>
                                 </Link>

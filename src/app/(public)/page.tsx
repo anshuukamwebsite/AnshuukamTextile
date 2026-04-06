@@ -2,7 +2,6 @@ import {
     Hero,
     CapacityStats,
     CatalogueGrid,
-    FabricSection,
     CTASection,
 } from "@/components/public";
 
@@ -12,7 +11,6 @@ export default function HomePage() {
             <Hero />
             <CapacityStats />
             <CatalogueGrid />
-            <FabricSection />
             <CTASection />
         </>
     );
