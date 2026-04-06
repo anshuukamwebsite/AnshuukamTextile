@@ -24,18 +24,6 @@ export default async function FabricsPage() {
 
     return (
         <div className="min-h-screen bg-[#fafafa]">
-            {/* Breadcrumb */}
-            <div className="bg-muted border-b border-border">
-                <div className="container-industrial py-4">
-                    <div className="flex items-center gap-2 text-sm">
-                        <Link href="/" className="text-muted-foreground hover:text-foreground transition-colors">
-                            Home
-                        </Link>
-                        <span className="text-muted-foreground">/</span>
-                        <span className="font-medium">Fabrics</span>
-                    </div>
-                </div>
-            </div>
 
             {/* Page Header */}
             <section className="relative bg-card border-b border-border py-12">
@@ -109,11 +97,6 @@ export default async function FabricsPage() {
                                                 {fabric.name}
                                             </h3>
 
-                                            <div className="flex flex-col gap-1 text-xs text-white/70 font-mono mb-2">
-                                                <span className="uppercase tracking-wider">
-                                                    {fabric.composition || "Composition N/A"}
-                                                </span>
-                                            </div>
                                         </div>
                                     </div>
                                 </Link>

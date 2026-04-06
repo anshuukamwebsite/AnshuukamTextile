@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
-    ArrowLeft, Layers, Scale, CheckCircle, Mail
+    ArrowLeft, CheckCircle
 } from "lucide-react";
 import { getCachedFabrics, getCachedFabricBySlug } from "@/lib/services/cached-data";
 import { Metadata } from "next";
@@ -79,23 +79,6 @@ export default async function FabricDetailPage({ params }: { params: Promise<{ s
             {/* Industrial Warning Stripe */}
             <div className="absolute top-0 left-0 right-0 h-1 industrial-stripe opacity-20" />
 
-            {/* Breadcrumb */}
-            <div className="bg-muted border-b border-border">
-                <div className="container-industrial py-4">
-                    <div className="flex items-center gap-2 text-sm">
-                        <Link href="/" className="text-muted-foreground hover:text-foreground transition-colors">
-                            Home
-                        </Link>
-                        <span className="text-muted-foreground">/</span>
-                        <Link href="/fabrics" className="text-muted-foreground hover:text-foreground transition-colors">
-                            Fabrics
-                        </Link>
-                        <span className="text-muted-foreground">/</span>
-                        <span className="font-medium">{fabric.name}</span>
-                    </div>
-                </div>
-            </div>
-
             <div className="container-industrial py-12 relative z-10">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
                     {/* Left Column - Images */}
@@ -115,40 +98,21 @@ export default async function FabricDetailPage({ params }: { params: Promise<{ s
                                     PREMIUM FABRIC
                                 </Badge>
                             </div>
-                            <h1 className="text-4xl md:text-5xl font-bold mb-4 text-foreground font-serif-display tracking-tight">
-                                {fabric.name}
-                            </h1>
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-4">
+                                <h1 className="text-4xl md:text-5xl font-bold text-foreground font-serif-display tracking-tight">
+                                    {fabric.name}
+                                </h1>
+                                {fabric.weight && (
+                                    <Badge variant="secondary" className="w-fit font-mono text-sm px-3 py-1 bg-muted border-border">
+                                        {fabric.weight}
+                                    </Badge>
+                                )}
+                            </div>
                             {fabric.description && (
                                 <p className="text-lg text-muted-foreground leading-relaxed">
                                     {fabric.description}
                                 </p>
                             )}
-                        </div>
-
-                        {/* Specifications - Industrial Card */}
-                        <div className="card-factory">
-                            <div className="flex justify-between items-center p-2 border-b border-border bg-muted/30 text-[10px] font-mono text-muted-foreground">
-                                <span>SPEC-SHEET</span>
-                                <span>MAT-{fabric.id.slice(0, 8).toUpperCase()}</span>
-                            </div>
-                            <div className="p-6">
-                                <div className="grid grid-cols-2 gap-6">
-                                    <div className="space-y-1">
-                                        <div className="flex items-center gap-2 text-xs text-muted-foreground font-mono uppercase tracking-wider">
-                                            <Layers className="h-4 w-4 text-accent" />
-                                            Composition
-                                        </div>
-                                        <p className="font-bold text-xl text-foreground">{fabric.composition || "100% Cotton"}</p>
-                                    </div>
-                                    <div className="space-y-1">
-                                        <div className="flex items-center gap-2 text-xs text-muted-foreground font-mono uppercase tracking-wider">
-                                            <Scale className="h-4 w-4 text-accent" />
-                                            Weight
-                                        </div>
-                                        <p className="font-bold text-xl text-foreground">{fabric.weight || "180 GSM"}</p>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
 
                         {/* Properties */}
@@ -172,24 +136,12 @@ export default async function FabricDetailPage({ params }: { params: Promise<{ s
                                 </div>
                             </div>
                         )}
-
-                        {/* CTA Buttons */}
-                        <div className="pt-6 border-t border-white/10">
-                            <div className="flex flex-col sm:flex-row gap-4">
-                                <Link href="/contact" className="flex-1">
-                                    <Button className="w-full btn-industrial h-14 text-lg">
-                                        <Mail className="mr-2 h-5 w-5" />
-                                        Contact Us
-                                    </Button>
-                                </Link>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
 
             {/* Back to Fabrics */}
-            <section className="bg-muted/30 py-8 border-t border-white/10 relative z-10">
+            {/* <section className="bg-muted/30 py-8 border-t border-white/10 relative z-10">
                 <div className="container-industrial">
                     <Link href="/fabrics">
                         <Button variant="ghost" className="group hover:bg-transparent pl-0 hover:pl-2 transition-all text-muted-foreground hover:text-accent">
@@ -198,7 +150,7 @@ export default async function FabricDetailPage({ params }: { params: Promise<{ s
                         </Button>
                     </Link>
                 </div>
-            </section>
+            </section> */}
         </div>
     );
 }

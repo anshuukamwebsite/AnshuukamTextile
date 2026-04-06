@@ -87,27 +87,12 @@ export async function FabricSection() {
                                         {fabric.name}
                                     </h3>
 
-                                    <div className="flex flex-col gap-1 text-xs text-white/70 font-mono mb-2">
-                                        <span className="uppercase tracking-wider">
-                                            {fabric.composition || "Composition N/A"}
-                                        </span>
-                                    </div>
                                 </div>
                             </div>
                         </Link>
                     ))}
                 </div>
 
-                {/* Bottom Note */}
-                <div className="mt-12 flex flex-col md:flex-row items-center justify-center gap-2 text-sm text-muted-foreground border-t border-dashed border-border pt-8">
-                    <Scroll className="h-4 w-4" />
-                    <p>
-                        Don't see what you need? We can source custom fabrics for bulk orders.
-                    </p>
-                    <Link href="/contact" className="text-accent hover:underline font-medium font-mono uppercase tracking-wide text-xs">
-                        Contact Sourcing Team
-                    </Link>
-                </div>
             </div>
         </section>
     );
