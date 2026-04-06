@@ -304,21 +304,6 @@ export default function FabricsPage() {
                                             <h4 className="text-xs font-bold uppercase text-primary border-b border-border pb-2 mb-4">Material Specs</h4>
                                             <div className="grid grid-cols-2 gap-4">
                                                 <div className="space-y-1.5">
-                                                    <Label htmlFor="composition" className="text-xs uppercase text-muted-foreground">Composition</Label>
-                                                    <Input
-                                                        id="composition"
-                                                        value={formData.composition}
-                                                        onChange={(e) =>
-                                                            setFormData((prev) => ({
-                                                                ...prev,
-                                                                composition: e.target.value,
-                                                            }))
-                                                        }
-                                                        placeholder="e.g., 100% Cotton"
-                                                        className="h-9"
-                                                    />
-                                                </div>
-                                                <div className="space-y-1.5">
                                                     <Label htmlFor="weight" className="text-xs uppercase text-muted-foreground">Weight (GSM)</Label>
                                                     <Input
                                                         id="weight"
@@ -435,7 +420,7 @@ export default function FabricsPage() {
                                 <TableRow>
                                     <TableHead className="w-16">Image</TableHead>
                                     <TableHead>Name</TableHead>
-                                    <TableHead>Composition</TableHead>
+
                                     <TableHead>Weight</TableHead>
                                     <TableHead>Order</TableHead>
                                     <TableHead>Status</TableHead>
@@ -466,9 +451,7 @@ export default function FabricsPage() {
                                             )}
                                         </TableCell>
                                         <TableCell className="font-medium">{fabric.name}</TableCell>
-                                        <TableCell className="text-muted-foreground">
-                                            {fabric.composition || "-"}
-                                        </TableCell>
+
                                         <TableCell className="text-muted-foreground">
                                             {fabric.weight || "-"}
                                         </TableCell>

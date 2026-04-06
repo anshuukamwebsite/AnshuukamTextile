@@ -246,6 +246,7 @@ export default function CataloguePage() {
                                                 }
                                                 multiple={false}
                                                 maxFiles={1}
+                                                cropAspect={3 / 4}
                                             />
                                             <p className="text-[10px] text-muted-foreground mt-2">
                                                 Upload category thumbnail.

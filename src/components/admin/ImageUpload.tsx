@@ -1,10 +1,12 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
+import Cropper, { Area, Point } from "react-easy-crop";
 
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import { Upload, X, Loader2, ImageIcon, Plus } from "lucide-react";
+import { Upload, X, Loader2, ImageIcon, Plus, Crop, ZoomIn } from "lucide-react";
+import { getCroppedImage } from "@/lib/utils/cropUtils";
 
 interface ImageUploadProps {
     currentImages?: string[]; // Changed to array
@@ -15,6 +17,7 @@ interface ImageUploadProps {
     className?: string;
     maxFiles?: number;
     multiple?: boolean;
+    cropAspect?: number; // Aspect ratio for crop (default 4/3)
 }
 
 const DEFAULT_IMAGES: string[] = [];
@@ -28,12 +31,23 @@ export function ImageUpload({
     className = "",
     maxFiles = 1,
     multiple = false,
+    cropAspect = 3 / 4,
 }: ImageUploadProps) {
     const [isUploading, setIsUploading] = useState(false);
     const [images, setImages] = useState<string[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [shouldCompress, setShouldCompress] = useState(true);
     const fileInputRef = useRef<HTMLInputElement>(null);
+
+    // Crop state
+    const [cropModalOpen, setCropModalOpen] = useState(false);
+    const [cropImageSrc, setCropImageSrc] = useState<string | null>(null);
+    const [cropFileName, setCropFileName] = useState<string>("cropped.jpg");
+    const [crop, setCrop] = useState<Point>({ x: 0, y: 0 });
+    const [zoom, setZoom] = useState(1);
+    const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
+    // Queue for multiple files
+    const [pendingFiles, setPendingFiles] = useState<File[]>([]);
 
     useEffect(() => {
         const newImages = currentImages.length > 0
@@ -50,12 +64,16 @@ export function ImageUpload({
         });
     }, [currentImages, currentImage]);
 
+    const onCropComplete = useCallback((_croppedArea: Area, croppedAreaPixels: Area) => {
+        setCroppedAreaPixels(croppedAreaPixels);
+    }, []);
+
     const compressImage = async (file: File): Promise<File> => {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onload = (event) => {
-                const img = new window.Image(); // Use window.Image to avoid conflict with next/image
+                const img = new window.Image();
                 img.src = event.target?.result as string;
                 img.onload = () => {
                     const canvas = document.createElement('canvas');
@@ -102,6 +120,15 @@ export function ImageUpload({
         });
     };
 
+    const readFileAsDataURL = (file: File): Promise<string> => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result as string);
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
+        });
+    };
+
     const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files;
         if (!files || files.length === 0) return;
@@ -114,70 +141,118 @@ export function ImageUpload({
             return;
         }
 
+        const fileArray = Array.from(files);
+
+        // Validate all files first
+        for (const file of fileArray) {
+            if (!file.type.startsWith("image/")) {
+                setError(`File ${file.name} is not an image`);
+                return;
+            }
+            if (file.size > 2 * 1024 * 1024) {
+                setError(`File ${file.name} exceeds the 2MB limit`);
+                return;
+            }
+        }
+
+        // Store remaining files in queue, open crop for the first one
+        setPendingFiles(fileArray.slice(1));
+        await openCropModal(fileArray[0]);
+
+        // Reset input
+        if (fileInputRef.current) {
+            fileInputRef.current.value = "";
+        }
+    };
+
+    const openCropModal = async (file: File) => {
+        try {
+            const dataUrl = await readFileAsDataURL(file);
+            setCropImageSrc(dataUrl);
+            setCropFileName(file.name);
+            setCrop({ x: 0, y: 0 });
+            setZoom(1);
+            setCroppedAreaPixels(null);
+            setCropModalOpen(true);
+        } catch (err) {
+            console.error("Failed to read file:", err);
+            setError("Failed to read image file");
+        }
+    };
+
+    const handleCropConfirm = async () => {
+        if (!cropImageSrc || !croppedAreaPixels) return;
+
+        setCropModalOpen(false);
+
         setIsUploading(true);
-        const newUrls: string[] = [];
 
         try {
-            const uploadPromises = Array.from(files).map(async (file) => {
-                // Validate file type
-                if (!file.type.startsWith("image/")) {
-                    throw new Error(`File ${file.name} is not an image`);
+            // Crop the image
+            const croppedBlob = await getCroppedImage(cropImageSrc, croppedAreaPixels);
+            let fileToUpload = new File(
+                [croppedBlob],
+                cropFileName.replace(/\.[^/.]+$/, "") + ".jpg",
+                { type: "image/jpeg", lastModified: Date.now() }
+            );
+
+            // Compress if enabled
+            if (shouldCompress) {
+                try {
+                    fileToUpload = await compressImage(fileToUpload);
+                } catch (err) {
+                    console.error("Compression failed, uploading cropped original", err);
                 }
+            }
 
-                // Validate file size (2MB max)
-                if (file.size > 2 * 1024 * 1024) {
-                    throw new Error(`File ${file.name} exceeds the 2MB limit`);
-                }
+            // Upload
+            const formData = new FormData();
+            formData.append("file", fileToUpload);
 
-                let fileToUpload = file;
-                if (shouldCompress) {
-                    try {
-                        fileToUpload = await compressImage(file);
-                    } catch (err) {
-                        console.error("Compression failed, uploading original", err);
-                    }
-                }
-
-                const formData = new FormData();
-                formData.append("file", fileToUpload);
-
-                const response = await fetch("/api/upload", {
-                    method: "POST",
-                    body: formData,
-                });
-
-                const result = await response.json();
-
-                if (!result.success) {
-                    throw new Error(result.error || `Failed to upload ${file.name}`);
-                }
-
-                return result.data.url;
+            const response = await fetch("/api/upload", {
+                method: "POST",
+                body: formData,
             });
 
-            const uploadedUrls = await Promise.all(uploadPromises);
-            newUrls.push(...uploadedUrls);
+            const result = await response.json();
 
-            const updatedImages = [...images, ...newUrls];
+            if (!result.success) {
+                throw new Error(result.error || "Failed to upload image");
+            }
+
+            const uploadedUrl = result.data.url;
+            const updatedImages = [...images, uploadedUrl];
             setImages(updatedImages);
 
             if (onImagesChange) {
                 onImagesChange(updatedImages);
             }
-            if (onImageUploaded && newUrls.length > 0) {
-                onImageUploaded(newUrls[0]);
+            if (onImageUploaded) {
+                onImageUploaded(uploadedUrl);
             }
 
-            toast.success(`Successfully uploaded ${newUrls.length} image(s)`);
+            toast.success("Image cropped & uploaded successfully");
         } catch (error: any) {
             console.error("Upload error:", error);
-            setError(error.message || "Failed to upload images");
+            setError(error.message || "Failed to upload image");
         } finally {
             setIsUploading(false);
-            if (fileInputRef.current) {
-                fileInputRef.current.value = "";
-            }
+            setCropImageSrc(null);
         }
+
+        // Process next file in queue
+        if (pendingFiles.length > 0) {
+            const [nextFile, ...rest] = pendingFiles;
+            setPendingFiles(rest);
+            await openCropModal(nextFile);
+        }
+    };
+
+    const handleCropCancel = () => {
+        setCropModalOpen(false);
+        setCropImageSrc(null);
+        setCroppedAreaPixels(null);
+        setPendingFiles([]);
     };
 
     const handleRemove = async (indexToRemove: number) => {
@@ -316,6 +391,82 @@ export function ImageUpload({
                 <p className="text-xs text-muted-foreground text-right">
                     {images.length} / {maxFiles} images
                 </p>
+            )}
+
+            {/* ========== CROP MODAL ========== */}
+            {cropModalOpen && cropImageSrc && (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-sm">
+                    <div className="bg-card border border-border rounded-xl shadow-2xl w-[95vw] max-w-2xl overflow-hidden">
+                        {/* Modal Header */}
+                        <div className="flex items-center justify-between px-6 py-4 border-b border-border bg-muted/30">
+                            <div className="flex items-center gap-2">
+                                <Crop className="h-5 w-5 text-accent" />
+                                <h3 className="font-bold text-lg">Preview & Crop</h3>
+                            </div>
+                            <button
+                                onClick={handleCropCancel}
+                                className="text-muted-foreground hover:text-foreground transition-colors"
+                            >
+                                <X className="h-5 w-5" />
+                            </button>
+                        </div>
+
+                        {/* Crop Area */}
+                        <div className="relative w-full h-[50vh] min-h-[300px] bg-black">
+                            <Cropper
+                                image={cropImageSrc}
+                                crop={crop}
+                                zoom={zoom}
+                                aspect={cropAspect}
+                                onCropChange={setCrop}
+                                onZoomChange={setZoom}
+                                onCropComplete={onCropComplete}
+                                style={{
+                                    containerStyle: { width: "100%", height: "100%" },
+                                }}
+                            />
+                        </div>
+
+                        {/* Zoom Control */}
+                        <div className="px-6 py-4 border-t border-border">
+                            <div className="flex items-center gap-4">
+                                <ZoomIn className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                                <input
+                                    type="range"
+                                    min={1}
+                                    max={3}
+                                    step={0.05}
+                                    value={zoom}
+                                    onChange={(e) => setZoom(Number(e.target.value))}
+                                    className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-accent"
+                                />
+                                <span className="text-xs text-muted-foreground font-mono w-10 text-right">
+                                    {zoom.toFixed(1)}x
+                                </span>
+                            </div>
+                        </div>
+
+                        {/* Modal Footer */}
+                        <div className="flex items-center justify-end gap-3 px-6 py-4 border-t border-border bg-muted/20">
+                            <Button
+                                type="button"
+                                variant="outline"
+                                onClick={handleCropCancel}
+                            >
+                                Cancel
+                            </Button>
+                            <Button
+                                type="button"
+                                onClick={handleCropConfirm}
+                                className="btn-industrial"
+                                disabled={!croppedAreaPixels}
+                            >
+                                <Crop className="h-4 w-4 mr-2" />
+                                Confirm & Upload
+                            </Button>
+                        </div>
+                    </div>
+                </div>
             )}
         </div>
     );
