@@ -17,7 +17,8 @@ import {
 
 const createEnquirySchema = z.object({
     clothingTypeId: z.string().uuid(),
-    fabricId: z.string().uuid(),
+    fabricId: z.string().min(1), // Can be UUID or "other"
+    customFabric: z.string().optional(),
     quantity: z.number().int().min(0), // 0 = sample request
     sizeRange: z.string().min(1),
     phoneNumber: z.string().min(1),
@@ -60,10 +61,12 @@ export async function POST(request: NextRequest) {
         const body = await request.json();
         const validatedData = createEnquirySchema.parse(body);
 
+        const isCustomFabric = validatedData.fabricId === "other";
+
         // Fetch clothing type and fabric names for reference
         const [clothingType, fabric] = await Promise.all([
             getClothingTypeById(validatedData.clothingTypeId),
-            getFabricById(validatedData.fabricId),
+            !isCustomFabric ? getFabricById(validatedData.fabricId) : Promise.resolve(null),
         ]);
 
         if (!clothingType) {
@@ -73,25 +76,28 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        if (!fabric) {
+        if (!isCustomFabric && !fabric) {
             return NextResponse.json(
                 { success: false, error: "Invalid fabric" },
                 { status: 400 }
             );
         }
 
+        const fabricName = isCustomFabric ? (validatedData.customFabric || "Custom Fabric") : fabric!.name;
+
         // Create enquiry with names stored for reference
         const result = await createEnquiry({
             ...validatedData,
+            fabricId: isCustomFabric ? null : validatedData.fabricId,
             clothingTypeName: clothingType.name,
-            fabricName: fabric.name,
+            fabricName: fabricName,
             status: "pending",
         });
 
         // Send email notification (non-blocking)
         const emailData = {
             clothingType: clothingType.name,
-            fabric: fabric.name,
+            fabric: fabricName,
             quantity: validatedData.quantity,
             sizeRange: validatedData.sizeRange,
             phoneNumber: validatedData.phoneNumber,

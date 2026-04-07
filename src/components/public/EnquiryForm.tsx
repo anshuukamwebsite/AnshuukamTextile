@@ -56,6 +56,7 @@ interface FormData {
     contactPerson: string;
     notes: string;
     isSampleRequest: boolean;
+    customFabric?: string;
 }
 
 const initialFormData: FormData = {
@@ -70,6 +71,7 @@ const initialFormData: FormData = {
     contactPerson: "",
     notes: "",
     isSampleRequest: false,
+    customFabric: "",
 };
 
 const steps = [
@@ -123,6 +125,7 @@ export function EnquiryForm() {
     useEffect(() => {
         const categoryId = searchParams.get("category");
         const productId = searchParams.get("product");
+        const fabricId = searchParams.get("fabric");
 
         if (categoryId) {
             setFormData(prev => ({ ...prev, clothingTypeId: categoryId }));
@@ -130,6 +133,10 @@ export function EnquiryForm() {
             if (productId) {
                 setFormData(prev => ({ ...prev, productId: productId }));
             }
+        }
+
+        if (fabricId === "other") {
+            setFormData(prev => ({ ...prev, fabricId: "other" }));
         }
     }, [searchParams]);
 
@@ -165,7 +172,10 @@ export function EnquiryForm() {
     const validateStep = (step: number): boolean => {
         switch (step) {
             case 1:
-                return !!formData.clothingTypeId && !!formData.fabricId;
+                const isFabricValid = formData.fabricId === "other"
+                    ? !!formData.customFabric?.trim()
+                    : !!formData.fabricId;
+                return !!formData.clothingTypeId && isFabricValid;
             case 2:
                 if (!formData.sizeRange) return false;
                 // If sample request, quantity is not required
@@ -379,7 +389,12 @@ export function EnquiryForm() {
                                 return (
                                     <Select
                                         value={formData.fabricId}
-                                        onValueChange={(value) => updateField("fabricId", value)}
+                                        onValueChange={(value) => {
+                                            updateField("fabricId", value);
+                                            if (value !== "other") {
+                                                updateField("customFabric", "");
+                                            }
+                                        }}
                                     >
                                         <SelectTrigger>
                                             <SelectValue placeholder="Select fabric type" />
@@ -390,11 +405,32 @@ export function EnquiryForm() {
                                                     {fabric.name}
                                                 </SelectItem>
                                             ))}
+                                            <SelectItem value="other" className="font-medium text-accent">
+                                                Other / Custom Fabric
+                                            </SelectItem>
                                         </SelectContent>
                                     </Select>
                                 );
                             })()}
                         </div>
+
+                        {formData.fabricId === "other" && (
+                            <div className="space-y-2 animate-in fade-in slide-in-from-top-1 duration-200">
+                                <Label htmlFor="customFabric">
+                                    Specify Fabric Name <span className="text-destructive">*</span>
+                                </Label>
+                                <Input
+                                    id="customFabric"
+                                    placeholder="e.g., Organic Pima Cotton, Silk Blend, etc."
+                                    value={formData.customFabric}
+                                    onChange={(e) => updateField("customFabric", e.target.value)}
+                                    className="border-accent/50 focus:border-accent"
+                                />
+                                <p className="text-[10px] text-muted-foreground font-mono">
+                                    OUR TEAM WILL VERIFY MANUFACTURING FEASIBILITY FOR YOUR CUSTOM CHOICE.
+                                </p>
+                            </div>
+                        )}
                     </div>
                 )}
 
@@ -572,8 +608,15 @@ export function EnquiryForm() {
                                 <div>
                                     <p className="text-sm text-muted-foreground">Fabric</p>
                                     <p className="font-medium">
-                                        {getSelectedName(formData.fabricId, fabrics)}
+                                        {formData.fabricId === "other"
+                                            ? formData.customFabric
+                                            : getSelectedName(formData.fabricId, fabrics)}
                                     </p>
+                                    {formData.fabricId === "other" && (
+                                        <p className="text-[10px] text-accent font-mono mt-1">
+                                            CUSTOM SPECIFICATION
+                                        </p>
+                                    )}
                                 </div>
                             </div>
 

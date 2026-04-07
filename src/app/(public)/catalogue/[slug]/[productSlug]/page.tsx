@@ -151,10 +151,15 @@ export default async function ProductPage({
 
                         {/* Available Fabrics */}
                         <div className="space-y-4">
-                            <h3 className="text-xs font-bold uppercase text-muted-foreground font-mono tracking-wider flex items-center gap-2">
-                                <div className="w-2 h-2 bg-accent rounded-full" />
-                                Available Fabrics
-                            </h3>
+                            <div className="flex items-center justify-between">
+                                <h3 className="text-xs font-bold uppercase text-muted-foreground font-mono tracking-wider flex items-center gap-2">
+                                    <div className="w-2 h-2 bg-accent rounded-full" />
+                                    Available Fabrics
+                                </h3>
+                                <p className="text-[10px] font-mono text-accent/80 uppercase tracking-tighter">
+                                    + Custom fabrics on request
+                                </p>
+                            </div>
                             <div className="flex flex-wrap gap-2">
                                 {availableFabrics.map(fabric => (
                                     <Link key={fabric.id} href={`/fabrics/${fabric.slug}`}>
@@ -167,7 +172,19 @@ export default async function ProductPage({
                                         </Badge>
                                     </Link>
                                 ))}
+                                <Link href={`/enquiry?category=${category.id}&product=${product.id}&fabric=other`}>
+                                    <Badge
+                                        variant="outline"
+                                        className="border-accent/40 text-accent hover:bg-accent hover:text-accent-foreground transition-colors cursor-pointer px-4 py-2 text-sm font-medium border-dashed"
+                                    >
+                                        Any Other Fabric
+                                        <PenTool className="ml-2 h-3 w-3 opacity-70" />
+                                    </Badge>
+                                </Link>
                             </div>
+                            <p className="text-[10px] text-muted-foreground font-mono leading-tight">
+                                * DON&apos;T SEE THE FABRIC YOU NEED? SELECT &quot;OTHER&quot; IN THE ENQUIRY FORM TO SPECIFY YOUR REQUIREMENTS.
+                            </p>
                         </div>
 
                         {/* CTA Buttons */}
