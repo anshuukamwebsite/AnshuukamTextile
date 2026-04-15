@@ -1,0 +1,1 @@
+ALTER TABLE "factory_photos" ADD COLUMN "show_in_home_slider" boolean DEFAULT false;

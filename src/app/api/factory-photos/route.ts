@@ -7,9 +7,10 @@ import { z } from "zod";
 
 const createPhotoSchema = z.object({
     title: z.string().min(1),
-    description: z.string().optional(),
+    description: z.string().optional().nullable(),
     imageUrl: z.string().url(),
-    category: z.string().optional(),
+    category: z.string().optional().nullable(),
+    showInHomeSlider: z.boolean().optional(),
     displayOrder: z.number().int().optional(),
 });
 

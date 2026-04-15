@@ -64,6 +64,13 @@
       "when": 1776253556489,
       "tag": "0008_colorful_siren",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1776258556530,
+      "tag": "0009_square_warstar",
+      "breakpoints": true
     }
   ]
 }

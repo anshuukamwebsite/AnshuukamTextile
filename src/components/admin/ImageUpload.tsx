@@ -18,6 +18,7 @@ interface ImageUploadProps {
     maxFiles?: number;
     multiple?: boolean;
     cropAspect?: number; // Aspect ratio for crop (default 4/3)
+    skipCrop?: boolean; // If true, skip the cropping step
 }
 
 const DEFAULT_IMAGES: string[] = [];
@@ -32,6 +33,7 @@ export function ImageUpload({
     maxFiles = 1,
     multiple = false,
     cropAspect = 3 / 4,
+    skipCrop = false,
 }: ImageUploadProps) {
     const [isUploading, setIsUploading] = useState(false);
     const [images, setImages] = useState<string[]>([]);
@@ -157,7 +159,12 @@ export function ImageUpload({
 
         // Store remaining files in queue, open crop for the first one
         setPendingFiles(fileArray.slice(1));
-        await openCropModal(fileArray[0]);
+
+        if (skipCrop) {
+            await handleDirectUpload(fileArray[0]);
+        } else {
+            await openCropModal(fileArray[0]);
+        }
 
         // Reset input
         if (fileInputRef.current) {
@@ -177,6 +184,64 @@ export function ImageUpload({
         } catch (err) {
             console.error("Failed to read file:", err);
             setError("Failed to read image file");
+        }
+    };
+
+    const handleDirectUpload = async (file: File) => {
+        setIsUploading(true);
+        setError(null);
+
+        try {
+            let fileToUpload = file;
+
+            // Compress if enabled
+            if (shouldCompress) {
+                try {
+                    fileToUpload = await compressImage(file);
+                } catch (err) {
+                    console.error("Compression failed, uploading original", err);
+                }
+            }
+
+            // Upload
+            const formData = new FormData();
+            formData.append("file", fileToUpload);
+
+            const response = await fetch("/api/upload", {
+                method: "POST",
+                body: formData,
+            });
+
+            const result = await response.json();
+
+            if (!result.success) {
+                throw new Error(result.error || "Failed to upload image");
+            }
+
+            const uploadedUrl = result.data.url;
+            const updatedImages = [...images, uploadedUrl];
+            setImages(updatedImages);
+
+            if (onImagesChange) {
+                onImagesChange(updatedImages);
+            }
+            if (onImageUploaded) {
+                onImageUploaded(uploadedUrl);
+            }
+
+            toast.success("Image uploaded successfully");
+
+            // Process next file in queue
+            if (pendingFiles.length > 0) {
+                const [nextFile, ...rest] = pendingFiles;
+                setPendingFiles(rest);
+                await handleDirectUpload(nextFile);
+            }
+        } catch (error: any) {
+            console.error("Upload error:", error);
+            setError(error.message || "Failed to upload image");
+        } finally {
+            setIsUploading(false);
         }
     };
 

@@ -31,6 +31,7 @@ interface FactoryPhoto {
     description: string | null;
     imageUrl: string;
     category: string | null;
+    showInHomeSlider: boolean | null;
     displayOrder: number | null;
     isActive: boolean | null;
 }
@@ -43,6 +44,7 @@ const categories = [
     { value: "office", label: "Office" },
     { value: "exterior", label: "Exterior" },
     { value: "team", label: "Our Team" },
+    { value: "expo", label: "Exhibition / Expo" },
     { value: "other", label: "Other" },
 ];
 
@@ -59,6 +61,7 @@ export default function FactoryPhotosPage() {
         description: "",
         imageUrl: "",
         category: "production",
+        showInHomeSlider: false,
     });
 
     const fetchPhotos = async () => {
@@ -88,6 +91,7 @@ export default function FactoryPhotosPage() {
                 description: photo.description || "",
                 imageUrl: photo.imageUrl,
                 category: photo.category || "production",
+                showInHomeSlider: photo.showInHomeSlider || false,
             });
         } else {
             setEditingPhoto(null);
@@ -96,6 +100,7 @@ export default function FactoryPhotosPage() {
                 description: "",
                 imageUrl: "",
                 category: "production",
+                showInHomeSlider: false,
             });
         }
         setIsDialogOpen(true);
@@ -216,9 +221,9 @@ export default function FactoryPhotosPage() {
             {/* Page Header */}
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-2xl font-bold">Factory Photos</h1>
+                    <h1 className="text-2xl font-bold">Showcase Gallery</h1>
                     <p className="text-muted-foreground">
-                        Manage photos displayed on the Our Factory page
+                        Manage photos displayed on the Showcase & Infrastructure page
                     </p>
                 </div>
                 <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -256,6 +261,22 @@ export default function FactoryPhotosPage() {
                                         onImageUploaded={(url) => setFormData(prev => ({ ...prev, imageUrl: url }))}
                                         onImageRemoved={() => setFormData(prev => ({ ...prev, imageUrl: "" }))}
                                         maxFiles={1}
+                                        skipCrop={true}
+                                    />
+                                </div>
+
+                                <div className="flex items-center justify-between p-3 border rounded-lg bg-muted/30">
+                                    <div className="space-y-0.5">
+                                        <Label className="text-sm font-bold">Show in Home Slider</Label>
+                                        <p className="text-xs text-muted-foreground">
+                                            Feature this photo in the homepage exhibition slider.
+                                        </p>
+                                    </div>
+                                    <Switch
+                                        checked={formData.showInHomeSlider === true}
+                                        onCheckedChange={(checked) =>
+                                            setFormData((prev) => ({ ...prev, showInHomeSlider: checked }))
+                                        }
                                     />
                                 </div>
 
@@ -319,80 +340,89 @@ export default function FactoryPhotosPage() {
             </div>
 
             {/* Photos Grid */}
-            {photos.length === 0 ? (
-                <Card>
-                    <CardContent className="flex flex-col items-center justify-center py-16">
-                        <ImageIcon className="h-12 w-12 text-muted-foreground mb-4" />
-                        <h3 className="font-semibold mb-2">No photos yet</h3>
-                        <p className="text-muted-foreground text-sm mb-4">
-                            Add photos to showcase your factory
-                        </p>
-                        <Button onClick={() => handleOpenDialog()}>
-                            <Plus className="mr-2 h-4 w-4" />
-                            Add First Photo
-                        </Button>
-                    </CardContent>
-                </Card>
-            ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {photos.map((photo) => (
-                        <Card
-                            key={photo.id}
-                            className={`overflow-hidden ${!photo.isActive ? "opacity-60" : ""}`}
-                        >
-                            <div className="relative h-48">
-                                <img
-                                    src={photo.imageUrl}
-                                    alt={photo.title}
-                                    className="w-full h-full object-cover"
-                                    onError={(e) => {
-                                        (e.target as HTMLImageElement).src = "https://placehold.co/400x300?text=Image+Error";
-                                    }}
-                                />
-                                <div className="absolute top-2 right-2 flex gap-1">
-                                    <Button
-                                        size="icon"
-                                        variant="secondary"
-                                        className="h-8 w-8"
-                                        onClick={() => handleOpenDialog(photo)}
-                                    >
-                                        <Pencil className="h-4 w-4" />
-                                    </Button>
-                                    <Button
-                                        size="icon"
-                                        variant="destructive"
-                                        className="h-8 w-8"
-                                        onClick={() => handleDelete(photo.id)}
-                                    >
-                                        <Trash2 className="h-4 w-4" />
-                                    </Button>
-                                </div>
-                                {photo.category && (
-                                    <div className="absolute bottom-2 left-2">
-                                        <span className="bg-black/70 text-white text-xs px-2 py-1 rounded">
-                                            {categories.find((c) => c.value === photo.category)?.label || photo.category}
-                                        </span>
-                                    </div>
-                                )}
-                            </div>
-                            <CardContent className="p-4">
-                                <div className="flex items-center justify-between mb-2">
-                                    <h3 className="font-semibold truncate">{photo.title}</h3>
-                                    <Switch
-                                        checked={photo.isActive ?? true}
-                                        onCheckedChange={() => handleToggleActive(photo)}
+            {
+                photos.length === 0 ? (
+                    <Card>
+                        <CardContent className="flex flex-col items-center justify-center py-16">
+                            <ImageIcon className="h-12 w-12 text-muted-foreground mb-4" />
+                            <h3 className="font-semibold mb-2">No photos yet</h3>
+                            <p className="text-muted-foreground text-sm mb-4">
+                                Add photos to showcase your factory and exhibitions
+                            </p>
+                            <Button onClick={() => handleOpenDialog()}>
+                                <Plus className="mr-2 h-4 w-4" />
+                                Add First Photo
+                            </Button>
+                        </CardContent>
+                    </Card>
+                ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {photos.map((photo) => (
+                            <Card
+                                key={photo.id}
+                                className={`overflow-hidden ${!photo.isActive ? "opacity-60" : ""}`}
+                            >
+                                <div className="relative h-48">
+                                    <img
+                                        src={photo.imageUrl}
+                                        alt={photo.title}
+                                        className="w-full h-full object-cover"
+                                        onError={(e) => {
+                                            (e.target as HTMLImageElement).src = "https://placehold.co/400x300?text=Image+Error";
+                                        }}
                                     />
+                                    <div className="absolute top-2 right-2 flex gap-1">
+                                        <Button
+                                            size="icon"
+                                            variant="secondary"
+                                            className="h-8 w-8"
+                                            onClick={() => handleOpenDialog(photo)}
+                                        >
+                                            <Pencil className="h-4 w-4" />
+                                        </Button>
+                                        <Button
+                                            size="icon"
+                                            variant="destructive"
+                                            className="h-8 w-8"
+                                            onClick={() => handleDelete(photo.id)}
+                                        >
+                                            <Trash2 className="h-4 w-4" />
+                                        </Button>
+                                    </div>
+                                    {photo.category && (
+                                        <div className="absolute bottom-2 left-2">
+                                            <span className="bg-black/70 text-white text-xs px-2 py-1 rounded">
+                                                {categories.find((c) => c.value === photo.category)?.label || photo.category}
+                                            </span>
+                                        </div>
+                                    )}
                                 </div>
-                                {photo.description && (
-                                    <p className="text-sm text-muted-foreground line-clamp-2">
-                                        {photo.description}
-                                    </p>
-                                )}
-                            </CardContent>
-                        </Card>
-                    ))}
-                </div>
-            )}
-        </div>
+                                <CardContent className="p-4">
+                                    <div className="flex items-center justify-between mb-2">
+                                        <div className="flex items-center gap-2">
+                                            <h3 className="font-semibold truncate">{photo.title}</h3>
+                                            {photo.showInHomeSlider && (
+                                                <div className="bg-orange-500/10 text-orange-600 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-tight">
+                                                    Featured
+                                                </div>
+                                            )}
+                                        </div>
+                                        <Switch
+                                            checked={photo.isActive ?? true}
+                                            onCheckedChange={() => handleToggleActive(photo)}
+                                        />
+                                    </div>
+                                    {photo.description && (
+                                        <p className="text-sm text-muted-foreground line-clamp-2">
+                                            {photo.description}
+                                        </p>
+                                    )}
+                                </CardContent>
+                            </Card>
+                        ))}
+                    </div>
+                )
+            }
+        </div >
     );
 }

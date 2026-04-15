@@ -10,4 +10,5 @@ export { EnquiryForm } from "./EnquiryForm";
 export { ProductImageGallery } from "./ProductImageGallery";
 export { FabricImageGallery } from "./FabricImageGallery";
 export { FactoryGallery } from "./FactoryGallery";
+export { ExhibitionSlider } from "./ExhibitionSlider";
 

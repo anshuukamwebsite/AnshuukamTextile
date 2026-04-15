@@ -101,8 +101,8 @@ export function FactorySettings() {
         <div className="space-y-6">
             <div className="flex items-center justify-between">
                 <div>
-                    <h2 className="text-lg font-medium">Factory Page Content</h2>
-                    <p className="text-sm text-muted-foreground">Manage content sections for the Factory page</p>
+                    <h2 className="text-lg font-medium">Showcase Page Content</h2>
+                    <p className="text-sm text-muted-foreground">Manage content sections for the Showcase page</p>
                 </div>
                 <Button onClick={handleSave} disabled={isSaving}>
                     {isSaving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
@@ -148,8 +148,8 @@ export function FactorySettings() {
                 <TabsContent value="stats" className="space-y-4 mt-4">
                     <Card>
                         <CardHeader>
-                            <CardTitle>Factory Stats</CardTitle>
-                            <CardDescription>Key statistics displayed on the factory page</CardDescription>
+                            <CardTitle>Showcase Stats</CardTitle>
+                            <CardDescription>Key statistics displayed on the showcase page</CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-6">
                             <div className="space-y-4">

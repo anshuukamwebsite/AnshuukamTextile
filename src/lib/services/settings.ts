@@ -67,8 +67,8 @@ const defaultContent = {
 // Default content structure for Factory Page
 const defaultFactoryContent = {
     hero: {
-        title: "Our Factory",
-        description: "Take a virtual tour of our state-of-the-art manufacturing facility with 50,000+ sq ft of production space."
+        title: "Our Showcase",
+        description: "Explore our state-of-the-art infrastructure and industry presence. From precision manufacturing to international garment exhibitions."
     },
     stats: [
         { value: "50,000+", label: "Sq Ft Facility", id: "AREA" },
@@ -77,8 +77,8 @@ const defaultFactoryContent = {
         { value: "100%", label: "Quality Checked", id: "QC" },
     ],
     gallery: {
-        title: "Inside Our Facility",
-        description: "Explore our manufacturing facility through these photos. From cutting-edge machinery to our dedicated team."
+        title: "Infrastructure & Presence",
+        description: "Explore our world—from advanced production floors to industry exhibitions and our dedicated team."
     }
 };
 

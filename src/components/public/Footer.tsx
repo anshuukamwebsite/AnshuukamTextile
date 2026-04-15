@@ -51,7 +51,7 @@ export async function Footer() {
                             {[
                                 { name: "Product Catalogue", href: "/catalogue" },
                                 { name: "Fabric Options", href: "/fabrics" },
-                                { name: "Our Factory", href: "/factory" },
+                                { name: "Our Showcase", href: "/factory" },
                                 { name: "About Us", href: "/about" },
                                 { name: "Our Team", href: "/about/team" },
                                 { name: "Legal & Policies", href: "/about/legal" },

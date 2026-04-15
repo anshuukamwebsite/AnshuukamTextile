@@ -6,8 +6,8 @@ import { Metadata } from "next";
 import { FactoryGallery } from "@/components/public/FactoryGallery";
 
 export const metadata: Metadata = {
-    title: "Our Factory | Anshukkam Textile",
-    description: "Take a virtual tour of our state-of-the-art manufacturing facility. 50,000+ sq ft production space, 200+ skilled workers, 24/7 production capability.",
+    title: "Our Showcase | Anshuukam Textile",
+    description: "Take a virtual tour of our infrastructure and industry presence. From state-of-the-art manufacturing to global exhibitions and product showcases.",
 };
 
 interface FactoryPhoto {
@@ -26,6 +26,7 @@ const categoryLabels: Record<string, string> = {
     office: "Office",
     exterior: "Exterior",
     team: "Our Team",
+    expo: "Exhibitions & Showcase",
     other: "Other",
 };
 
@@ -51,7 +52,7 @@ export default async function FactoryPage() {
                     <div className="max-w-3xl">
                         <div className="section-tag mb-2 text-white/80 border-white/20">
                             <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
-                            INFRASTRUCTURE
+                            INFRASTRUCTURE & PRESENCE
                         </div>
                         <h1 className="text-2xl md:text-3xl font-bold mb-2 font-serif-display tracking-wide">
                             {content.hero.title}

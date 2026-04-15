@@ -206,6 +206,7 @@ export const factoryPhotos = pgTable("factory_photos", {
     description: text("description"),
     imageUrl: text("image_url").notNull(),
     category: varchar("category", { length: 100 }), // e.g., "production", "warehouse", "quality-control"
+    showInHomeSlider: boolean("show_in_home_slider").default(false),
     displayOrder: integer("display_order").default(0),
     isActive: boolean("is_active").default(true),
     createdAt: timestamp("created_at").defaultNow(),

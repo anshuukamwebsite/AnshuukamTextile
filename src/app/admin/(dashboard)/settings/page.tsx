@@ -204,7 +204,7 @@ export default function SettingsPage() {
                     <TabsTrigger value="contact">Contact Details</TabsTrigger>
                     <TabsTrigger value="capacity">Production Capabilities</TabsTrigger>
                     <TabsTrigger value="about">About Page</TabsTrigger>
-                    <TabsTrigger value="factory">Factory Page</TabsTrigger>
+                    <TabsTrigger value="factory">Showcase Page</TabsTrigger>
                     <TabsTrigger value="legal">Legal Pages</TabsTrigger>
                 </TabsList>
 

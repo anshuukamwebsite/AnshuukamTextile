@@ -27,7 +27,7 @@ const navigation = [
     { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
     { name: "Catagories", href: "/admin/catalogue", icon: Package },
     { name: "Fabrics", href: "/admin/fabrics", icon: Layers },
-    { name: "Factory Photos", href: "/admin/factory", icon: ImageIcon },
+    { name: "Showcase Gallery", href: "/admin/factory", icon: ImageIcon },
     { name: "Enquiries", href: "/admin/enquiries", icon: MessageSquare },
     { name: "Design Enquiries", href: "/admin/design-enquiries", icon: Palette },
     { name: "Reviews", href: "/admin/reviews", icon: Star },
