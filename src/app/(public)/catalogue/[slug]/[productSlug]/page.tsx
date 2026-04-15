@@ -53,7 +53,7 @@ export default async function ProductPage({
     const availableFabrics = product.availableFabrics && product.availableFabrics.length > 0
         // @ts-ignore - availableFabrics might be string[] but includes expects string
         ? fabrics.filter(f => product.availableFabrics.includes(f.id))
-        : fabrics;
+        : [];
 
     return (
         <div className="min-h-screen bg-blueprint relative">
