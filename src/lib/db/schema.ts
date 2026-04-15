@@ -41,6 +41,9 @@ export const fabrics = pgTable("fabrics", {
     images: text("images").array(),
     displayOrder: integer("display_order").default(0),
     isActive: boolean("is_active").default(true),
+    clothingTypeId: uuid("clothing_type_id").references(() => clothingTypes.id, {
+        onDelete: "set null",
+    }),
     createdAt: timestamp("created_at").defaultNow(),
     updatedAt: timestamp("updated_at").defaultNow(),
 });
@@ -235,7 +238,11 @@ export const clothingTypesRelations = relations(clothingTypes, ({ many }) => ({
     enquiries: many(enquiries),
 }));
 
-export const fabricsRelations = relations(fabrics, ({ many }) => ({
+export const fabricsRelations = relations(fabrics, ({ one, many }) => ({
+    clothingType: one(clothingTypes, {
+        fields: [fabrics.clothingTypeId],
+        references: [clothingTypes.id],
+    }),
     enquiries: many(enquiries),
     designEnquiries: many(designEnquiries),
 }));

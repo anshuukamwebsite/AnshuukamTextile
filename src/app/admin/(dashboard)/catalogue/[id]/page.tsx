@@ -37,6 +37,7 @@ interface Category {
 interface Fabric {
     id: string;
     name: string;
+    clothingTypeId: string | null;
 }
 
 interface CatalogueImage {
@@ -496,37 +497,84 @@ export default function CategoryProductsPage() {
 
                                         {/* Fabrics Section */}
                                         <div>
-                                            <h4 className="text-xs font-bold uppercase text-primary border-b border-border pb-2 mb-4">Available Fabrics</h4>
-                                            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 max-h-[200px] overflow-y-auto p-2 border border-border rounded bg-muted/5">
-                                                {fabrics.map((fabric) => (
-                                                    <div key={fabric.id} className="flex items-center space-x-2">
-                                                        <input
-                                                            type="checkbox"
-                                                            id={`fabric-${fabric.id}`}
-                                                            checked={formData.availableFabrics.includes(fabric.id)}
-                                                            onChange={(e) => {
-                                                                if (e.target.checked) {
-                                                                    setFormData(prev => ({
-                                                                        ...prev,
-                                                                        availableFabrics: [...prev.availableFabrics, fabric.id]
-                                                                    }));
-                                                                } else {
-                                                                    setFormData(prev => ({
-                                                                        ...prev,
-                                                                        availableFabrics: prev.availableFabrics.filter(id => id !== fabric.id)
-                                                                    }));
-                                                                }
-                                                            }}
-                                                            className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
-                                                        />
-                                                        <Label htmlFor={`fabric-${fabric.id}`} className="text-sm font-normal cursor-pointer">
-                                                            {fabric.name}
-                                                        </Label>
-                                                    </div>
-                                                ))}
+                                            <div className="flex items-center justify-between border-b border-border pb-2 mb-4">
+                                                <h4 className="text-xs font-bold uppercase text-primary">Available Fabrics</h4>
+                                                <Button
+                                                    type="button"
+                                                    size="sm"
+                                                    variant="outline"
+                                                    className="h-7 text-[10px] uppercase font-bold"
+                                                    onClick={() => {
+                                                        const categoryFabrics = fabrics
+                                                            .filter(f => f.clothingTypeId === categoryId)
+                                                            .map(f => f.id);
+
+                                                        setFormData(prev => ({
+                                                            ...prev,
+                                                            availableFabrics: Array.from(new Set([...prev.availableFabrics, ...categoryFabrics]))
+                                                        }));
+                                                        toast.success(`Selected all fabrics from ${category?.name}`);
+                                                    }}
+                                                >
+                                                    Select All {category?.name} Fabrics
+                                                </Button>
+                                            </div>
+
+                                            <div className="space-y-6 max-h-[400px] overflow-y-auto p-2 border border-border rounded bg-muted/5">
+                                                {/* Group fabrics by their assigned clothing category */}
+                                                {(() => {
+                                                    const groupedFabrics: Record<string, Fabric[]> = {};
+                                                    fabrics.forEach(fabric => {
+                                                        const categoryKey = fabric.clothingTypeId || "unassigned";
+                                                        if (!groupedFabrics[categoryKey]) groupedFabrics[categoryKey] = [];
+                                                        groupedFabrics[categoryKey].push(fabric);
+                                                    });
+
+                                                    return Object.entries(groupedFabrics).map(([catId, catFabrics]) => {
+                                                        const catName = catId === "unassigned"
+                                                            ? "Unassigned Fabrics"
+                                                            : (catFabrics[0] as any).clothingType?.name || "Other Category";
+
+                                                        return (
+                                                            <div key={catId} className="space-y-2">
+                                                                <h5 className="text-[10px] font-bold uppercase text-muted-foreground bg-muted/30 px-2 py-1 border-y border-border/50">
+                                                                    {catName}
+                                                                </h5>
+                                                                <div className="grid grid-cols-2 md:grid-cols-3 gap-3 p-2">
+                                                                    {catFabrics.map((fabric) => (
+                                                                        <div key={fabric.id} className="flex items-center space-x-2">
+                                                                            <input
+                                                                                type="checkbox"
+                                                                                id={`fabric-${fabric.id}`}
+                                                                                checked={formData.availableFabrics.includes(fabric.id)}
+                                                                                onChange={(e) => {
+                                                                                    if (e.target.checked) {
+                                                                                        setFormData(prev => ({
+                                                                                            ...prev,
+                                                                                            availableFabrics: [...prev.availableFabrics, fabric.id]
+                                                                                        }));
+                                                                                    } else {
+                                                                                        setFormData(prev => ({
+                                                                                            ...prev,
+                                                                                            availableFabrics: prev.availableFabrics.filter(id => id !== fabric.id)
+                                                                                        }));
+                                                                                    }
+                                                                                }}
+                                                                                className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
+                                                                            />
+                                                                            <Label htmlFor={`fabric-${fabric.id}`} className="text-sm font-normal cursor-pointer">
+                                                                                {fabric.name}
+                                                                            </Label>
+                                                                        </div>
+                                                                    ))}
+                                                                </div>
+                                                            </div>
+                                                        );
+                                                    });
+                                                })()}
                                             </div>
                                             <p className="text-[10px] text-muted-foreground mt-2">
-                                                Select fabrics available for this product. If none selected, all fabrics may be considered available.
+                                                Select fabrics available for this product. Fabrics are grouped by their main category.
                                             </p>
                                         </div>
 

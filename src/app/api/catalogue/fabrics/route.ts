@@ -14,6 +14,7 @@ const createFabricSchema = z.object({
     images: z.array(z.string().url()).optional(),
     displayOrder: z.number().int().optional(),
     isActive: z.boolean().optional(),
+    clothingTypeId: z.string().uuid().optional().nullable(),
 });
 
 export async function GET(request: NextRequest) {

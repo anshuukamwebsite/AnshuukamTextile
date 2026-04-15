@@ -19,6 +19,7 @@ const updateFabricSchema = z.object({
     images: z.array(z.string().url()).optional(),
     displayOrder: z.number().int().optional(),
     isActive: z.boolean().optional(),
+    clothingTypeId: z.string().uuid().optional().nullable(),
 });
 
 // Helper to check if string is UUID

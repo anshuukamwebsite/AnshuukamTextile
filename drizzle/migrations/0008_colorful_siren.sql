@@ -1,0 +1,2 @@
+ALTER TABLE "fabrics" ADD COLUMN "clothing_type_id" uuid;--> statement-breakpoint
+ALTER TABLE "fabrics" ADD CONSTRAINT "fabrics_clothing_type_id_clothing_types_id_fk" FOREIGN KEY ("clothing_type_id") REFERENCES "public"."clothing_types"("id") ON DELETE set null ON UPDATE no action;

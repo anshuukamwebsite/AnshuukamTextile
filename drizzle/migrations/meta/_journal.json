@@ -57,6 +57,13 @@
       "when": 1768315034473,
       "tag": "0007_add_reviews_table",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1776253556489,
+      "tag": "0008_colorful_siren",
+      "breakpoints": true
     }
   ]
 }

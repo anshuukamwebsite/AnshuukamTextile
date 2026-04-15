@@ -73,15 +73,14 @@ export async function deleteClothingType(id: string) {
 // ==================== FABRICS ====================
 
 export async function getFabrics(activeOnly = true) {
-    const query = activeOnly
-        ? db
-            .select()
-            .from(fabrics)
-            .where(eq(fabrics.isActive, true))
-            .orderBy(asc(fabrics.displayOrder))
-        : db.select().from(fabrics).orderBy(asc(fabrics.displayOrder));
-
-    return await query;
+    const result = await db.query.fabrics.findMany({
+        where: (fabric, { eq }) => activeOnly ? eq(fabric.isActive, true) : undefined,
+        orderBy: [asc(fabrics.displayOrder)],
+        with: {
+            clothingType: true,
+        },
+    });
+    return result;
 }
 
 export async function getFabricById(id: string) {

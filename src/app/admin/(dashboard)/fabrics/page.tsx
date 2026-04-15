@@ -22,6 +22,13 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import { Plus, Pencil, Trash2, Loader2, ImageIcon, X } from "lucide-react";
@@ -38,6 +45,16 @@ interface Fabric {
     images: string[] | null;
     displayOrder: number | null;
     isActive: boolean | null;
+    clothingTypeId: string | null;
+    clothingType?: {
+        id: string;
+        name: string;
+    } | null;
+}
+
+interface ClothingType {
+    id: string;
+    name: string;
 }
 
 export default function FabricsPage() {
@@ -55,7 +72,9 @@ export default function FabricsPage() {
         images: [] as string[],
         displayOrder: 0,
         isActive: true,
+        clothingTypeId: "",
     });
+    const [categories, setCategories] = useState<ClothingType[]>([]);
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const fetchFabrics = async () => {
@@ -73,8 +92,21 @@ export default function FabricsPage() {
         }
     };
 
+    const fetchCategories = async () => {
+        try {
+            const response = await fetch("/api/catalogue/types");
+            const result = await response.json();
+            if (result.success) {
+                setCategories(result.data);
+            }
+        } catch (error) {
+            console.error("Failed to fetch categories:", error);
+        }
+    };
+
     useEffect(() => {
         fetchFabrics();
+        fetchCategories();
     }, []);
 
     const generateSlug = (name: string) => {
@@ -104,6 +136,7 @@ export default function FabricsPage() {
             images: [],
             displayOrder: fabrics.length,
             isActive: true,
+            clothingTypeId: "",
         });
         setIsDialogOpen(true);
     };
@@ -129,6 +162,7 @@ export default function FabricsPage() {
             images: initialImages,
             displayOrder: fabric.displayOrder || 0,
             isActive: fabric.isActive ?? true,
+            clothingTypeId: fabric.clothingTypeId || "",
         });
         setIsDialogOpen(true);
     };
@@ -147,6 +181,7 @@ export default function FabricsPage() {
             const payload = {
                 ...formData,
                 imageUrl: formData.images.length > 0 ? formData.images[0] : null,
+                clothingTypeId: formData.clothingTypeId || null,
             };
 
             const response = await fetch(url, {
@@ -279,6 +314,27 @@ export default function FabricsPage() {
                                                         required
                                                         className="h-9 font-mono text-xs"
                                                     />
+                                                </div>
+                                            </div>
+                                            <div className="mt-4 grid grid-cols-2 gap-4">
+                                                <div className="space-y-1.5">
+                                                    <Label className="text-xs uppercase text-muted-foreground">Category *</Label>
+                                                    <Select
+                                                        value={formData.clothingTypeId}
+                                                        onValueChange={(value) => setFormData(prev => ({ ...prev, clothingTypeId: value }))}
+                                                        required
+                                                    >
+                                                        <SelectTrigger className="h-9">
+                                                            <SelectValue placeholder="Select Category" />
+                                                        </SelectTrigger>
+                                                        <SelectContent>
+                                                            {categories.map((cat) => (
+                                                                <SelectItem key={cat.id} value={cat.id}>
+                                                                    {cat.name}
+                                                                </SelectItem>
+                                                            ))}
+                                                        </SelectContent>
+                                                    </Select>
                                                 </div>
                                             </div>
                                             <div className="mt-4 space-y-1.5">
@@ -420,7 +476,7 @@ export default function FabricsPage() {
                                 <TableRow>
                                     <TableHead className="w-16">Image</TableHead>
                                     <TableHead>Name</TableHead>
-
+                                    <TableHead>Category</TableHead>
                                     <TableHead>Weight</TableHead>
                                     <TableHead>Order</TableHead>
                                     <TableHead>Status</TableHead>
@@ -451,6 +507,15 @@ export default function FabricsPage() {
                                             )}
                                         </TableCell>
                                         <TableCell className="font-medium">{fabric.name}</TableCell>
+                                        <TableCell>
+                                            {fabric.clothingType ? (
+                                                <Badge variant="outline" className="font-normal">
+                                                    {fabric.clothingType.name}
+                                                </Badge>
+                                            ) : (
+                                                <span className="text-muted-foreground text-xs italic">Unassigned</span>
+                                            )}
+                                        </TableCell>
 
                                         <TableCell className="text-muted-foreground">
                                             {fabric.weight || "-"}
