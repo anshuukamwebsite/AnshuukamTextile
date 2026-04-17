@@ -42,9 +42,12 @@ const categories = [
     { value: "quality-control", label: "Quality Control" },
     { value: "machinery", label: "Machinery" },
     { value: "office", label: "Office" },
+    { value: "interior", label: "Interior" },
     { value: "exterior", label: "Exterior" },
     { value: "team", label: "Our Team" },
-    { value: "expo", label: "Exhibition / Expo" },
+    { value: "exhibition", label: "Exhibition / Expo" },
+    { value: "achievement", label: "Achievement" },
+    { value: "celebration", label: "Celebration" },
     { value: "other", label: "Other" },
 ];
 
@@ -221,9 +224,9 @@ export default function FactoryPhotosPage() {
             {/* Page Header */}
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-2xl font-bold">Showcase Gallery</h1>
+                    <h1 className="text-2xl font-bold">Media Gallery</h1>
                     <p className="text-muted-foreground">
-                        Manage photos displayed on the Showcase & Infrastructure page
+                        Manage photos for your Factory Infrastructure and Event Gallery
                     </p>
                 </div>
                 <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>

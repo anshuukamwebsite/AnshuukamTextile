@@ -1,4 +1,4 @@
-import { Leaf, Sun, Wind, Recycle, Droplets, Target } from "lucide-react";
+import { Leaf, Sun, Wind, Recycle, Target } from "lucide-react";
 
 export const metadata = {
     title: "Future Goals & Sustainability | Anshuukam Textile",
@@ -37,7 +37,7 @@ export default function FutureGoalsPage() {
             {/* Sustainability Pillars */}
             <section className="section-industrial">
                 <div className="container-industrial">
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
                         {/* Renewable Energy */}
                         <div className="card-factory p-8 bg-background border-accent/10 hover:border-accent transition-all duration-300 group">
                             <div className="relative h-48 w-full mb-6 overflow-hidden rounded-lg bg-muted shadow-lg">
@@ -82,27 +82,7 @@ export default function FutureGoalsPage() {
                             </div>
                         </div>
 
-                        {/* Water Conservation */}
-                        <div className="card-factory p-8 bg-background border-accent/10 hover:border-accent transition-all duration-300 group">
-                            <div className="relative h-48 w-full mb-6 overflow-hidden rounded-lg bg-muted shadow-lg">
-                                <img
-                                    src="https://images.pexels.com/photos/5115946/pexels-photo-5115946.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                                    alt="Industrial Water Treatment Plant"
-                                    className="object-cover w-full h-full grayscale group-hover:grayscale-0 transition-all duration-500 scale-110 group-hover:scale-100"
-                                />
-                            </div>
-                            <div className="p-3 bg-accent/10 rounded-lg w-fit mb-4">
-                                <Droplets className="h-6 w-6 text-accent" />
-                            </div>
-                            <h3 className="text-xl font-bold font-serif-display mb-4">Water Recycling</h3>
-                            <p className="text-muted-foreground text-sm leading-relaxed mb-4">
-                                Advanced Effluent Treatment Plants (ETP) to recycle process water,
-                                ensuring zero liquid discharge and preserving local water resources.
-                            </p>
-                            <div className="text-[10px] font-mono text-accent uppercase tracking-widest bg-accent/5 px-2 py-1 rounded inline-block">
-                                Target: Active/Expanding
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </section>
@@ -148,17 +128,7 @@ export default function FutureGoalsPage() {
                                     </p>
                                 </div>
                             </div>
-                            <div className="flex gap-6 items-start border-t border-border pt-8 group">
-                                <div className="text-3xl font-serif-display font-bold text-accent/20">03</div>
-                                <div className="flex-1">
-                                    <h4 className="text-xl font-bold mb-2 font-serif-display">Digital Twin Factory</h4>
-                                    <p className="text-muted-foreground leading-relaxed mb-6">
-                                        Implementing smart AI sensors to monitor energy inefficiency in real-time,
-                                        optimizing machine performance for minimal ecological impact.
-                                    </p>
 
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>

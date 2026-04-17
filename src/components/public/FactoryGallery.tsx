@@ -122,18 +122,24 @@ export function FactoryGallery({ photos, categories, categoryLabels }: FactoryGa
                         <X className="h-8 w-8" />
                     </button>
                     <div
-                        className="max-w-5xl max-h-[90vh] w-full animate-scale-in relative"
+                        className="max-w-6xl max-h-[90vh] w-full animate-scale-in relative group"
                         onClick={(e) => e.stopPropagation()}
                     >
-                        <div className="relative border-4 border-white/10 p-1 bg-black/50 backdrop-blur-sm">
+                        <div className="relative border border-white/10 bg-black/40 backdrop-blur-md overflow-hidden rounded-lg shadow-3xl aspect-auto min-h-[50vh] flex items-center justify-center">
+                            {/* Blurred background for better fit */}
+                            <div className="absolute inset-0 overflow-hidden opacity-30">
+                                <img
+                                    src={selectedPhoto.imageUrl}
+                                    alt=""
+                                    className="w-full h-full object-cover blur-3xl scale-110"
+                                />
+                            </div>
+
                             <img
                                 src={selectedPhoto.imageUrl}
                                 alt={selectedPhoto.title}
-                                className="w-full h-auto max-h-[70vh] object-contain"
+                                className="relative z-10 w-auto h-auto max-w-full max-h-[80vh] object-contain shadow-2xl"
                             />
-
-                            {/* Quality Stamp */}
-                            <div className="absolute top-4 right-4 stamp-quality" />
                         </div>
 
                         <div className="mt-6 text-center text-white">

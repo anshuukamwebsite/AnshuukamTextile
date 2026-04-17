@@ -6,8 +6,8 @@ import { Metadata } from "next";
 import { FactoryGallery } from "@/components/public/FactoryGallery";
 
 export const metadata: Metadata = {
-    title: "Our Showcase | Anshuukam Textile",
-    description: "Take a virtual tour of our infrastructure and industry presence. From state-of-the-art manufacturing to global exhibitions and product showcases.",
+    title: "Our Factory | Anshuukam Textile",
+    description: "Explore our state-of-the-art manufacturing infrastructure, production capacity, and world-class garment manufacturing unit.",
 };
 
 interface FactoryPhoto {
@@ -24,15 +24,22 @@ const categoryLabels: Record<string, string> = {
     "quality-control": "Quality Control",
     machinery: "Machinery",
     office: "Office",
+    interior: "Interior",
     exterior: "Exterior",
     team: "Our Team",
-    expo: "Exhibitions & Showcase",
     other: "Other",
 };
 
+const factoryCategories = [
+    "production", "warehouse", "quality-control", "machinery", "office", "interior", "exterior", "team", "other"
+];
+
 export default async function FactoryPage() {
-    const photos = await getCachedFactoryPhotos() as FactoryPhoto[];
+    const allPhotos = await getCachedFactoryPhotos() as FactoryPhoto[];
     const content = await getFactoryPageSettings();
+
+    // Filter for factory related photos
+    const photos = allPhotos.filter(p => p.category && factoryCategories.includes(p.category));
 
     // Get unique categories from photos
     const categories = Array.from(new Set(photos.map((p) => p.category).filter(Boolean))) as string[];
@@ -52,10 +59,10 @@ export default async function FactoryPage() {
                     <div className="max-w-3xl">
                         <div className="section-tag mb-2 text-white/80 border-white/20">
                             <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
-                            INFRASTRUCTURE & PRESENCE
+                            FACTORY INFRASTRUCTURE
                         </div>
                         <h1 className="text-2xl md:text-3xl font-bold mb-2 font-serif-display tracking-wide">
-                            {content.hero.title}
+                            Our Manufacturing Unit
                         </h1>
                         <p className="text-sm text-primary-foreground/70 font-light max-w-2xl leading-relaxed font-mono">
                             {content.hero.description}
