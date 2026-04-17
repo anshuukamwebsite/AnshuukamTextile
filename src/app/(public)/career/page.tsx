@@ -1,4 +1,10 @@
 import { Briefcase } from "lucide-react";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Career Opportunities",
+    description: "Join the Anshuukam Textile team. Explore exciting career opportunities in garment manufacturing, textile production, and fashion design in Neemuch, Madhya Pradesh.",
+};
 
 export default function CareerPage() {
     return (
