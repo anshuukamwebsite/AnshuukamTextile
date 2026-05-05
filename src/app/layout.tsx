@@ -31,11 +31,11 @@ const SITE_URL = "https://anshuukamtextile.com";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Anshuukam Textile Pvt Ltd — Premium Garment Manufacturer in India",
+    default: "Anshuukam Textile — Garment Manufacturer India",
     template: "%s | Anshuukam Textile",
   },
   description:
-    "India's trusted garment manufacturing partner. Premium T-shirts, hoodies, jackets & workwear. Bulk orders, custom designs, and factory-direct pricing from Neemuch, Madhya Pradesh.",
+    "Premium garment manufacturer in Neemuch, India. T-shirts, hoodies, jackets & workwear. Bulk orders, custom designs, and factory-direct pricing.",
   keywords: [
     "Anshuukam Textile",
     "garment manufacturer India",
@@ -66,9 +66,9 @@ export const metadata: Metadata = {
     locale: "en_IN",
     url: SITE_URL,
     siteName: "Anshuukam Textile Pvt Ltd",
-    title: "Anshuukam Textile Pvt Ltd — Premium Garment Manufacturer in India",
+    title: "Anshuukam Textile — Garment Manufacturer India",
     description:
-      "India's trusted garment manufacturing partner. Premium T-shirts, hoodies, jackets & workwear. Bulk orders, custom designs, and factory-direct pricing.",
+      "Premium garment manufacturer in Neemuch, India. T-shirts, hoodies, jackets & workwear. Bulk orders, custom designs, factory-direct pricing.",
     images: [
       {
         url: "/logo.png",
@@ -80,9 +80,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Anshuukam Textile Pvt Ltd — Premium Garment Manufacturer",
+    title: "Anshuukam Textile — Garment Manufacturer India",
     description:
-      "India's trusted garment manufacturing partner. Premium T-shirts, hoodies, jackets & workwear. Factory-direct pricing from Neemuch, MP.",
+      "Premium garment manufacturer in Neemuch, India. T-shirts, hoodies, jackets & workwear. Bulk orders, custom designs, factory-direct pricing.",
     images: ["/logo.png"],
   },
   robots: {
@@ -128,15 +128,57 @@ const jsonLd = {
         "Premium garment manufacturing company based in Neemuch, Madhya Pradesh, India. Specializing in T-shirts, hoodies, jackets, and workwear.",
       address: {
         "@type": "PostalAddress",
+        streetAddress: "Industrial Area",
         addressLocality: "Neemuch",
         addressRegion: "Madhya Pradesh",
+        postalCode: "458441",
         addressCountry: "IN",
       },
+      telephone: "+91-84691-59877",
+      email: "info@anshuukam.com",
       sameAs: [],
       contactPoint: {
         "@type": "ContactPoint",
+        telephone: "+91-84691-59877",
         contactType: "sales",
         availableLanguage: ["English", "Hindi"],
+      },
+    },
+    {
+      "@type": ["LocalBusiness", "Manufacturer"],
+      "@id": `${SITE_URL}/#localbusiness`,
+      name: "Anshuukam Textile Pvt Ltd",
+      image: `${SITE_URL}/logo.png`,
+      url: SITE_URL,
+      telephone: "+91-84691-59877",
+      email: "info@anshuukam.com",
+      description:
+        "Premium garment manufacturer specializing in T-shirts, hoodies, jackets, and workwear. Bulk orders with factory-direct pricing.",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "Industrial Area",
+        addressLocality: "Neemuch",
+        addressRegion: "Madhya Pradesh",
+        postalCode: "458441",
+        addressCountry: "IN",
+      },
+      geo: {
+        "@type": "GeoCoordinates",
+        latitude: 24.543235,
+        longitude: 74.935836,
+      },
+      openingHoursSpecification: [
+        {
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+          opens: "09:00",
+          closes: "18:00",
+        },
+      ],
+      priceRange: "$$",
+      areaServed: {
+        "@type": "Country",
+        name: "India",
       },
     },
     {
@@ -168,6 +210,27 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        {/* Google Analytics - only loads when GA ID is configured */}
+        {process.env.NEXT_PUBLIC_GA_ID && (
+          <>
+            <script
+              async
+              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
+            />
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}', {
+                    page_path: window.location.pathname,
+                  });
+                `,
+              }}
+            />
+          </>
+        )}
       </head>
       <body
         className={`${spaceGrotesk.variable} ${dmMono.variable} ${cormorantGaramond.variable} ${crimsonPro.variable} font-sans antialiased`}

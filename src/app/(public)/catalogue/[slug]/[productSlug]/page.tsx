@@ -23,7 +23,7 @@ export async function generateMetadata({
     }
 
     return {
-        title: `${product.name} | Anshukkam Textile`,
+        title: `${product.name} | Anshuukam Textile`,
         description: product.description || `Custom manufacturing for ${product.name}.`,
     };
 }

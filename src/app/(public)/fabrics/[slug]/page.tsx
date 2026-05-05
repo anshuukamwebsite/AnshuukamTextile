@@ -50,7 +50,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     }
 
     return {
-        title: `${fabric.name} Fabric | Anshukkam Textile`,
+        title: `${fabric.name} Fabric | Anshuukam Textile`,
         description: fabric.description || `Premium ${fabric.name} fabric. Composition: ${fabric.composition || "N/A"}. Weight: ${fabric.weight || "N/A"}.`,
     };
 }

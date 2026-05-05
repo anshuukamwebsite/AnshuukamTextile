@@ -116,11 +116,7 @@ export function Hero() {
                                     loop
                                     muted
                                     playsInline
-                                    className="w-full h-auto"
-                                    style={{
-                                        filter: 'brightness(1.05) contrast(1.02)',
-                                        mixBlendMode: 'multiply'
-                                    }}
+                                    className="w-full h-auto video-enhanced"
                                 >
                                     <source src="https://7rz4hb1fun.ufs.sh/f/zqylwzFId0Bn7l999kK3TAGiR6eznS0UaHLhwZrludXvfp2I" type="video/mp4" />
                                     Your browser does not support the video tag.

@@ -95,7 +95,8 @@ export async function Footer() {
                             <li className="flex items-start gap-3 group">
                                 <MapPin className="h-5 w-5 mt-0.5 flex-shrink-0 text-accent group-hover:text-white transition-colors" />
                                 <span className="text-sm opacity-80 group-hover:opacity-100 transition-opacity">
-                                    Neemuch, Madhya Pradesh, India
+                                    Industrial Area, Neemuch,<br />
+                                    Madhya Pradesh 458441, India
                                 </span>
                             </li>
                             <li className="flex items-center gap-3 group">
@@ -104,7 +105,9 @@ export async function Footer() {
                             </li>
                             <li className="flex items-center gap-3 group">
                                 <Mail className="h-5 w-5 flex-shrink-0 text-accent group-hover:text-white transition-colors" />
-                                <span className="text-sm opacity-80 group-hover:opacity-100 transition-opacity">{contact.email}</span>
+                                <a href={`mailto:${contact.email}`} className="text-sm opacity-80 group-hover:opacity-100 transition-opacity" aria-label="Email us">
+                                    {contact.email.replace('@', ' [at] ')}
+                                </a>
                             </li>
                         </ul>
                     </div>

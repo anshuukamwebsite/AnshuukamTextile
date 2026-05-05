@@ -432,6 +432,16 @@
   }
 
 
+  /* SEO: Utility classes to replace inline styles */
+  .video-enhanced {
+    filter: brightness(1.05) contrast(1.02);
+    mix-blend-mode: multiply;
+  }
+
+  .iframe-borderless {
+    border: 0;
+  }
+
 }
 
 

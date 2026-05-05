@@ -5,7 +5,7 @@ import { getCachedClothingTypes } from "@/lib/services/cached-data";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Product Catalogue | Anshukkam Textile",
+    title: "Product Catalogue | Anshuukam Textile",
     description: "Explore our full range of garment categories. T-Shirts, Polos, Hoodies, Jackets, Workwear, and more. All products can be customized to your specifications.",
 };
 

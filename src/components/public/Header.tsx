@@ -61,12 +61,12 @@ export function Header({ navigationData, contactSettings }: HeaderProps) {
                             />
                         </div>
                         <div className="flex flex-col justify-center">
-                            <h1 className="text-sm font-bold leading-tight whitespace-nowrap">
+                            <span className="text-sm font-bold leading-tight whitespace-nowrap block">
                                 Anshuukam Textile Pvt Ltd
-                            </h1>
-                            <h3 className="text-[10px] text-muted-foreground uppercase tracking-wider whitespace-nowrap">
+                            </span>
+                            <span className="text-[10px] text-muted-foreground uppercase tracking-wider whitespace-nowrap block">
                                 Garment Manufacturing Unit
-                            </h3>
+                            </span>
                         </div>
                     </Link>
 

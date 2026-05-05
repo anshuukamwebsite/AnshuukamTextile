@@ -65,8 +65,8 @@ export default async function ContactPage() {
                                             <h3 className="font-bold font-serif-display mb-1">Email</h3>
                                             <span className="text-[10px] font-mono text-muted-foreground">CH-01</span>
                                         </div>
-                                        <a href={`mailto:${email}`} className="text-sm font-mono text-muted-foreground hover:text-accent transition-colors">
-                                            {email}
+                                        <a href={`mailto:${email}`} className="text-sm font-mono text-muted-foreground hover:text-accent transition-colors" aria-label="Email us">
+                                            {email.replace('@', ' [at] ')}
                                         </a>
                                     </div>
                                 </div>
@@ -160,11 +160,10 @@ export default async function ContactPage() {
                                     src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3629.330606800771!2d74.93329847536073!3d24.543234878137742!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjTCsDMyJzM1LjciTiA3NMKwNTYnMDkuMSJF!5e0!3m2!1sen!2sin!4v1768544554889!5m2!1sen!2sin"
                                     width="100%"
                                     height="100%"
-                                    style={{ border: 0 }}
+                                    className="iframe-borderless grayscale hover:grayscale-0 transition-all duration-500 relative z-10"
                                     allowFullScreen
                                     loading="lazy"
                                     referrerPolicy="no-referrer-when-downgrade"
-                                    className="grayscale hover:grayscale-0 transition-all duration-500 relative z-10"
                                 />
                             </div>
                             <p className="text-xs font-mono text-muted-foreground text-center uppercase tracking-wider">

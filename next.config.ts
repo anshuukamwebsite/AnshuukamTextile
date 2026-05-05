@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  compress: true,
   images: {
     minimumCacheTTL: 2678400, // 31 days
     formats: ['image/webp'], // Only WebP to reduce transformations
@@ -18,6 +19,31 @@ const nextConfig: NextConfig = {
         hostname: "placehold.co",
       },
     ],
+  },
+  async headers() {
+    return [
+      {
+        source: "/(.*)",
+        headers: [
+          {
+            key: "X-Content-Type-Options",
+            value: "nosniff",
+          },
+          {
+            key: "X-Frame-Options",
+            value: "SAMEORIGIN",
+          },
+          {
+            key: "X-XSS-Protection",
+            value: "1; mode=block",
+          },
+          {
+            key: "Referrer-Policy",
+            value: "strict-origin-when-cross-origin",
+          },
+        ],
+      },
+    ];
   },
 };
 

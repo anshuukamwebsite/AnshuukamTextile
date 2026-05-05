@@ -5,7 +5,7 @@ import { getCachedFabrics } from "@/lib/services/cached-data";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Fabric Options | Anshukkam Textile",
+    title: "Fabric Options | Anshuukam Textile",
     description: "Explore our premium fabric collection. Quality-tested materials from certified suppliers. Cotton, Polyester, Blends, and more available in bulk quantities.",
 };
 

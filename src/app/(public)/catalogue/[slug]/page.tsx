@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     }
 
     return {
-        title: `${category.name} | Anshukkam Textile`,
+        title: `${category.name} | Anshuukam Textile`,
         description: category.description || `Custom ${category.name} manufacturing. Browse our collection.`,
     };
 }
